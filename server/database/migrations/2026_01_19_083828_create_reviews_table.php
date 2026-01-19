@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->integer("score");
-            $table->string('opinion');
-            $table->tinyInteger('userid')->constrained()->cascadeOnDelete();
-            $table->tinyInteger('movieid')->constrained()->cascadeOnDelete();
+            $table->text('opinion');
+            $table->foreignId('movieid')->constrained('movies')->onDelete('restrict');
+            $table->foreignId('userid')->constrained('users')->onDelete('restrict');
             $table->timestamps();
         });
     }

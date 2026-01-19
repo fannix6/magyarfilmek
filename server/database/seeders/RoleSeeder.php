@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Helpers\CsvReader;
+use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +14,11 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $fileName = 'csv/roles.csv';
+        $delimeter = ';';
+        $data = CsvReader::csvToArray($fileName,$delimeter);
+        // var_dump($data);
+        // die;
+        Role::factory()->createMany($data);
     }
 }

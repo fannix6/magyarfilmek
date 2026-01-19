@@ -13,14 +13,10 @@ return new class extends Migration
     {
     Schema::create('movies', function (Blueprint $table) {
         $table->id();
-
-        $table->string('title', 191)->unique();
-
-        $table->year('produced');
-        $table->smallInteger('length');
-
-        $table->date('premiere');
-
+        $table->string('title', 125)->unique();
+        $table->integer('produced')->nullable();
+        $table->integer('length')->nullable();
+        $table->date('premiere')->nullable();
         $table->string('watchlink', 191)->unique();
         $table->string('imdblink', 191)->unique();
         $table->string('insetlink', 191)->unique();

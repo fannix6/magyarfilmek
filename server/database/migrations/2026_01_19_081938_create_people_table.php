@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('people', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->tinyInteger('gender')->comment('1=male, 0=female');
-            $table->string('photo')->unique();
+            $table->string('name', 50);
+            $table->tinyInteger('gender')->comment('1=male, 0=female')->nullable();
+            $table->string('photo', 125)->unique();
             $table->timestamps();
         });
     }

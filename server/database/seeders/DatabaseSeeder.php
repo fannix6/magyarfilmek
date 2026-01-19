@@ -19,13 +19,23 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         //Mielőtt seedelünk, minden táblát töröljünk le.
+        DB::statement('DELETE FROM reviews');
+        DB::statement('DELETE FROM tasks');
+        DB::statement('DELETE FROM movies');
+        DB::statement('DELETE FROM people');
+        DB::statement('DELETE FROM roles');
         DB::statement('DELETE FROM users');
 
 
 
         //Ami Seeder osztály itt fel van sorolva, annak lefut a run() metódusa
         $this->call([
-            UserSeeder::class,
+            RoleSeeder::class,
+            // PersonSeeder::class,
+            // MovieSeeder::class,
+            // TaskSeeder::class,
+            // ReviewSeeder::class,
+            // UserSeeder::class,
         ]);
     }
 }

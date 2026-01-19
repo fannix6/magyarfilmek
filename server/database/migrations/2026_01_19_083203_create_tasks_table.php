@@ -13,13 +13,10 @@ return new class extends Migration
     {
     Schema::create('tasks', function (Blueprint $table) {
         $table->id();
-
-        $table->integer('movieid')->constrained()->cascadeOnDelete();
-        $table->integer('personid')->constrained()->cascadeOnDelete();
-        $table->tinyInteger('roleid')->constrained()->cascadeOnDelete();
-
+        $table->foreignId('roleid')->constrained('roles')->onDelete('restrict');
+        $table->foreignId('personid')->constrained('people')->onDelete('restrict');
+        $table->foreignId('movieid')->constrained('movies')->onDelete('restrict');
         $table->unique(['movieid', 'personid', 'roleid']);
-
         $table->timestamps();
 });
 
