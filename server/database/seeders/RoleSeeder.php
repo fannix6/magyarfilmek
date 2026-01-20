@@ -16,9 +16,7 @@ class RoleSeeder extends Seeder
     {
         $fileName = 'csv/roles.csv';
         $delimeter = ';';
-        $data = CsvReader::csvToArray($fileName,$delimeter);
-        // var_dump($data);
-        // die;
+        $data = CsvReader::csvToArray($fileName, $delimeter);
         Role::factory()->createMany($data);
     }
 }

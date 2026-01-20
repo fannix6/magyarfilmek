@@ -18,13 +18,17 @@ class CsvReader
 
         if (($handle = fopen($filePath, 'r')) !== false) {
             $header = fgetcsv($handle, 0, $delimiter);
+            $header = array_map(function ($h) {
+                return preg_replace('/^\xEF\xBB\xBF/', '', $h);
+            }, $header);
+
 
             while (($cols = fgetcsv($handle, 0, $delimiter)) !== false) {
                 if ($header && count($header) === count($cols)) {
                     $data[] = array_combine($header, $cols);
                 }
             }
-            
+
             fclose($handle);
         }
 
