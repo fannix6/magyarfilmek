@@ -15,11 +15,10 @@ return new class extends Migration
         $table->id();
         $table->string('title', 125)->unique();
         $table->integer('produced')->nullable();
-        $table->integer('length')->nullable();
-        $table->date('premiere')->nullable();
-        $table->string('watchlink', 191)->unique();
-        $table->string('imdblink', 191)->unique();
-        $table->string('insetlink', 191)->unique();
+        $table->string('length')->nullable();
+        $table->string('premiere')->nullable();
+        $table->string('watchlink', 191)->nullable();
+        $table->string('imdblink', 191)->nullable();
 
         $table->timestamps();
 });

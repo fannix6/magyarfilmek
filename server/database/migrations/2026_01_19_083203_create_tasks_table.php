@@ -16,7 +16,6 @@ return new class extends Migration
         $table->foreignId('roleid')->constrained('roles')->onDelete('restrict');
         $table->foreignId('personid')->constrained('people')->onDelete('restrict');
         $table->foreignId('movieid')->constrained('movies')->onDelete('restrict');
-        $table->unique(['movieid', 'personid', 'roleid']);
         $table->timestamps();
 });
 

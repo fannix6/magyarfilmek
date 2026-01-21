@@ -31,11 +31,11 @@ class DatabaseSeeder extends Seeder
         //Ami Seeder osztály itt fel van sorolva, annak lefut a run() metódusa
         $this->call([
             RoleSeeder::class,
-            // PersonSeeder::class,
-            // MovieSeeder::class,
-            // TaskSeeder::class,
-            // ReviewSeeder::class,
-            // UserSeeder::class,
+            PersonSeeder::class,
+            MovieSeeder::class,
+            TaskSeeder::class,
+            ReviewSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

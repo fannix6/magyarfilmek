@@ -14,9 +14,9 @@ class TaskSeeder extends Seeder
      */
     public function run(): void
     {
-        // $fileName = 'csv/tasks.csv';
-        // $delimeter = ';';
-        // $data = CsvReader::csvToArray($fileName,$delimeter);
-        // Task::factory()->createMany($data);
+        $fileName = 'csv/tasks.csv';
+        $delimeter = ';';
+        $data = CsvReader::csvToArray($fileName,$delimeter);
+        Task::factory()->createMany($data);
     }
 }

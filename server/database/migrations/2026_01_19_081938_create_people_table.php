@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50);
             $table->tinyInteger('gender')->comment('1=male, 0=female')->nullable();
-            $table->string('photo', 125)->unique();
+            $table->string('photo', 125)->nullable();
             $table->timestamps();
         });
     }
