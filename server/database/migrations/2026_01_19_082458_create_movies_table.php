@@ -17,8 +17,8 @@ return new class extends Migration
         $table->integer('produced')->nullable();
         $table->string('length')->nullable();
         $table->string('premiere')->nullable();
-        $table->string('watchlink', 191)->nullable();
-        $table->string('imdblink', 191)->nullable();
+        $table->text('watchlink')->nullable();
+        $table->text('imdblink')->nullable();
 
         $table->timestamps();
 });
