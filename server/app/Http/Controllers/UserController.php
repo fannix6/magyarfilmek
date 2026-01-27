@@ -61,23 +61,12 @@ class UserController extends Controller
                 $abilities = ['*'];
                 break;
             case 2:
-                //Raktáros
+                //felhasznalo
                 $abilities = [
                     'usersme:delete',
                     'usersme:patch',
                     'usersme:updatePassword',
                     'usersme:get',
-                    'movies:get'
-                ];
-                break;
-            default:
-                //Vásárló
-                $abilities = [
-                    'usersme:delete',
-                    'usersme:patch',
-                    'usersme:updatePassword',
-                    'usersme:get',
-                    'movies:get'
                 ];
                 break;
         }

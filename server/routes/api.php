@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -58,15 +59,19 @@ Route::get( 'movies', [MovieController::class, 'index'])->middleware('auth:sanct
 
 
 //region role
+ 
+//minden role lekerdezese
+Route::get('roles', [RoleController::class, 'index']);
+//egy role lekerdezese
+Route::get('roles/{id}', [RoleController::class, 'show']);
 
-Route::get('roles', [TaskController::class, 'index']);
-Route::get('roles/{id}', [TaskController::class, 'show']);
-Route::post('roles', [TaskController::class, 'store']);
-    // ->middleware(['auth:sanctum', 'ability:tasks:post']);
-Route::patch('roles/{id}', [TaskController::class, 'update']);
-    // ->middleware(roles['auth:sanctum', 'ability:roles:patch']);
-Route::delete('roles/{id}', [TaskController::class, 'destroy']);
-    // ->middleware(['auth:sanctum', 'ability:roles:delete']);
+Route::post('roles', [RoleController::class, 'store'])
+    ->middleware(['auth:sanctum', 'ability:roles:post']);
+//role adatok modositasa
+Route::patch('roles/{id}', [RoleController::class, 'update'])
+    ->middleware(['auth:sanctum', 'ability:roles:patch']);
+//role torlese
+Route::delete('roles/{id}', [RoleController::class, 'destroy'])
+    ->middleware(['auth:sanctum', 'ability:roles:delete']);
 
-    
 //endregion

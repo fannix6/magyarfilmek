@@ -13,7 +13,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "email": "raktaros@example.com",
+    "email": "admin@example.com",
     "password": "123"
 }
 
@@ -109,61 +109,56 @@ GET  {{host}}/api/usersme
 Accept: application/json
 Authorization: Bearer {{token}}
 
-
+//----------------------------------------------------
 
 ### teszt
 get {{host}}/api/x
 
-### --- tasks
-### get tasks
-get {{host}}/api/tasks
+### --- roles
+
+### get roles
+get {{host}}/api/roles
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
-### get product by id
-get {{host}}/api/products/1
+### get role by id
+get {{host}}/api/roles/4
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-### post products
-POST  {{host}}/api/products
+### post role
+POST  {{host}}/api/roles
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "category": "Bogyós",
-    "name": "f3333xx",
-    "description": "Kézzel termelt egészség",
-    "picture": "https:\/\/hur.webmania.cc\/img\/malna.jpg",
-    "price": 8000,
-    "stock": 22
+    "role":"naplopó"
 }
 
-### delete product by id
-delete {{host}}/api/products/104
+### delete role by id
+delete {{host}}/api/roles/6
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
-### post products
-PATCH {{host}}/api/products/1
+### update role
+PATCH {{host}}/api/roles/6
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
 {
-    "price": 1002,
-    "stock": "eee"
+    "role":"hering"
 }
 
 
-//--- movies
+//--- roles
 
 ### movies get 
 GET {{host}}/api/movies

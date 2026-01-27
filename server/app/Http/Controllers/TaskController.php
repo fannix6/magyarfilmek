@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use Illuminate\Database\QueryException;
 
 class TaskController extends Controller
 {
@@ -50,6 +51,7 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         //
+
     }
 
     /**
