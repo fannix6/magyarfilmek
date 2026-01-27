@@ -67,9 +67,7 @@ class UserController extends Controller
                     'usersme:patch',
                     'usersme:updatePassword',
                     'usersme:get',
-                    'products:create',
-                    'products:delete',
-                    'products:update',
+                    'movies:get'
                 ];
                 break;
             default:
@@ -79,6 +77,7 @@ class UserController extends Controller
                     'usersme:patch',
                     'usersme:updatePassword',
                     'usersme:get',
+                    'movies:get'
                 ];
                 break;
         }

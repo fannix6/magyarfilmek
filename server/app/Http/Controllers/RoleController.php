@@ -13,7 +13,26 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            //code...
+            $rows = Role::all();
+            // $sql ="SELECT * FROM products";
+            // $rows = DB::select($sql);
+            $status = 200;
+            $data = [
+                'message' => 'OK',
+                'data' => $rows
+            ];
+        } catch (\Exception $e) {
+            //throw $th;
+            $status = 500;
+            $data = [
+                'message' => "Server error {$e->getCode()}",
+                'data' => $rows
+            ];
+        }
+
+        return response()->json($data, $status, options: JSON_UNESCAPED_UNICODE);
     }
 
     /**

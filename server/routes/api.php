@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -50,3 +52,21 @@ Route::get('usersme', [UserController::class, 'indexSelf'])
     ->middleware('auth:sanctum', 'ability:usersme:get'); 
 //endregion
 
+Route::get( 'movies', [MovieController::class, 'index'])->middleware('auth:sanctum', 'ability:movies:get'); 
+
+
+
+
+//region role
+
+Route::get('roles', [TaskController::class, 'index']);
+Route::get('roles/{id}', [TaskController::class, 'show']);
+Route::post('roles', [TaskController::class, 'store']);
+    // ->middleware(['auth:sanctum', 'ability:tasks:post']);
+Route::patch('roles/{id}', [TaskController::class, 'update']);
+    // ->middleware(roles['auth:sanctum', 'ability:roles:patch']);
+Route::delete('roles/{id}', [TaskController::class, 'destroy']);
+    // ->middleware(['auth:sanctum', 'ability:roles:delete']);
+
+    
+//endregion

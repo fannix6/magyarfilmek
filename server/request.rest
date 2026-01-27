@@ -13,8 +13,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "email": "vasarlo1@example.com",
-    "password": "ronaldo"
+    "email": "raktaros@example.com",
+    "password": "123"
 }
 
 ###
@@ -114,8 +114,9 @@ Authorization: Bearer {{token}}
 ### teszt
 get {{host}}/api/x
 
-### get products
-get {{host}}/api/products
+### --- tasks
+### get tasks
+get {{host}}/api/tasks
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -160,3 +161,12 @@ Authorization: Bearer {{token}}
     "price": 1002,
     "stock": "eee"
 }
+
+
+//--- movies
+
+### movies get 
+GET {{host}}/api/movies
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
