@@ -13,9 +13,9 @@ return new class extends Migration
     {
     Schema::create('tasks', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('roleid')->constrained('roles')->onDelete('restrict');
-        $table->foreignId('personid')->constrained('people')->onDelete('restrict');
-        $table->foreignId('movieid')->constrained('movies')->onDelete('restrict');
+        $table->foreignId('roleid')->constrained('roles')->onDelete('cascade');
+        $table->foreignId('personid')->constrained('people')->onDelete('cascade');
+        $table->foreignId('movieid')->constrained('movies')->onDelete('cascade');
         $table->timestamps();
 });
 

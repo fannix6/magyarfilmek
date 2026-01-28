@@ -114,7 +114,7 @@ Authorization: Bearer {{token}}
 ### teszt
 get {{host}}/api/x
 
-### --- roles
+### --- roles ---------------------------------------
 
 ### get roles
 get {{host}}/api/roles
@@ -147,14 +147,60 @@ Authorization: Bearer {{token}}
 
 
 ### update role
-PATCH {{host}}/api/roles/5
+PATCH {{host}}/api/roles/7
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "role":"hering"
+}
+
+
+### --- tasks ---------------------------------------------
+
+### get tasks
+get {{host}}/api/tasks
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
+### get task by id
+get {{host}}/api/tasks/2
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### post task
+POST  {{host}}/api/tasks
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
 {
-    "role":"hering"
+    "roleid":1,
+    "personid":416,
+    "movieid":77
+}
+
+### delete tasks by id
+delete {{host}}/api/tasks/10
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### update task
+PATCH {{host}}/api/tasks/7
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "roleid":1,
+    "personid":416,
+    "movieid":74
 }
 
 
