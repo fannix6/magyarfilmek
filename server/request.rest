@@ -147,7 +147,7 @@ Authorization: Bearer {{token}}
 
 
 ### update role
-PATCH {{host}}/api/roles/6
+PATCH {{host}}/api/roles/5
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -158,10 +158,4 @@ Authorization: Bearer {{token}}
 }
 
 
-//--- roles
 
-### movies get 
-GET {{host}}/api/movies
-Accept: application/json
-Content-Type: application/json
-Authorization: Bearer {{token}}
