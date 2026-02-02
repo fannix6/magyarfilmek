@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         $table->foreignId('roleid')->constrained('roles')->onDelete('cascade');
         $table->foreignId('personid')->constrained('people')->onDelete('cascade');
-        $table->foreignId('movieid')->constrained('movies')->onDelete('cascade');
+        $table->foreignId('movieid')->constrained('movies')->onDelete('restrict');
         $table->timestamps();
 });
 
