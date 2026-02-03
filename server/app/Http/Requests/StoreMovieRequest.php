@@ -22,7 +22,11 @@ class StoreMovieRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|unique:movies|string',
+            'produced' => 'required|integer',
+            'premiere' => 'required|string',
+            'watchlink' => 'required|string',
+            'imdblink' => 'required|string',
         ];
     }
 }
