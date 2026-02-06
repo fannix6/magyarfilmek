@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
+use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -20,11 +21,15 @@ class UpdatePersonRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
-        return [
-            'name' => 'required|string',
-            'gender' => 'required|integer',
-            'photo' => 'required|string',
-        ];
-    }
+{
+    return [
+        'name' => [
+            'required',
+            'string',
+            Rule::unique('people', 'name')->ignore($this->route('id')),
+        ],
+        'gender' => 'required|integer',
+        'photo' => 'required|string',
+    ];
+}
 }
