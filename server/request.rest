@@ -147,13 +147,13 @@ Authorization: Bearer {{token}}
 
 
 ### update role
-PATCH {{host}}/api/roles/7
+PATCH {{host}}/api/roles/3
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "role":"hering"
+    "role":"forgatókönyvíró"
 }
 
 
@@ -203,5 +203,106 @@ Authorization: Bearer {{token}}
     "movieid":10
 }
 
+
+### --- person -------------------------------------
+
+get {{host}}/api/person
+
+### get person
+get {{host}}/api/person
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### get people by id
+get {{host}}/api/person/3
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### post people
+POST  {{host}}/api/person
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Kocsis Bence",
+    "gender": 0,
+    "photo": "kocsisbence.jpg"
+}
+
+### delete people by id
+delete {{host}}/api/person/1787
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### update people
+PATCH {{host}}/api/person/1789
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name":"Kocsis Bencus",
+    "gender":1,
+    "photo":"kocsis_bence"
+}
+
+
+### --- movies -------------------------------------
+
+get {{host}}/api/movies
+
+### get movies
+get {{host}}/api/movies
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### get movie by id
+get {{host}}/api/movies/45
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### post movie
+POST  {{host}}/api/movies
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "title": "kavbojok es urlenyek",
+    "produced": 2027,
+    "length": "69",
+    "premiere": "2029.13.89",
+    "watchlink": "google.com",
+    "imdblink": "facebook.com"
+}
+
+### delete movie by id
+delete {{host}}/api/movies/608
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### update movie
+PATCH {{host}}/api/movies/609
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "title": "Cowboyok és Űrlények",
+    "produced": 2027,
+    "length": "69",
+    "premiere": "2029.13.89",
+    "watchlink": "facebook.com",
+    "imdblink": "google.com"
+}
 
 
