@@ -20,13 +20,17 @@ class UpdateMovieRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
-        return [
-            'title' => 'required|unique:movies|string',
-            'produced' => 'required|integer',
-            'premiere' => 'required|string',
-            'watchlink' => 'required|string',
-            'imdblink' => 'required|string',
-        ];
-    }
+{
+    return [
+        'title' => 'sometimes|required|string|max:125|unique:movies,title,' . $this->route('id'),
+
+        'produced' => 'sometimes|nullable|integer',
+        'length' => 'sometimes|nullable|string',
+        'premiere' => 'sometimes|nullable|string',
+
+        'watchlink' => 'sometimes|nullable|url',
+        'imdblink' => 'sometimes|nullable|url',
+    ];
+}
+
 }
