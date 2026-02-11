@@ -25,7 +25,24 @@ class StoreUserRequest extends FormRequest
             'name' => 'required|string',
             'email' => 'required|email',
             'password' => 'required',
-            
+        ];
+    }
+
+    /**
+     * Custom messages for validation errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'A név megadása kötelező.',
+            'name.string' => 'A névnek szövegnek kell lennie.',
+
+            'email.required' => 'Az email cím megadása kötelező.',
+            'email.email' => 'Érvényes email címet kell megadni.',
+
+            'password.required' => 'A jelszó megadása kötelező.',
         ];
     }
 }

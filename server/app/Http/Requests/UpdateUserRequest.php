@@ -26,7 +26,24 @@ class UpdateUserRequest extends FormRequest
             'email' => 'nullable|email',
             'password' => 'nullable',
             'role' => 'nullable',
-            
+        ];
+    }
+
+    /**
+     * Custom messages for validation errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.string' => 'A névnek szövegnek kell lennie.',
+
+            'email.email' => 'Érvényes email címet kell megadni.',
+
+            'password.string' => 'A jelszónak szövegnek kell lennie.',
+
+            'role.string' => 'A szerepkörnek szövegnek kell lennie.',
         ];
     }
 }

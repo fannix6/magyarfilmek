@@ -22,13 +22,27 @@ class UpdateRoleRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-{
-    return [
-        'role' => [
-            'required',
-            'string',
-            Rule::unique('roles', 'role')->ignore($this->route('id')),
-        ],
-    ];
-}
+    {
+        return [
+            'role' => [
+                'required',
+                'string',
+                Rule::unique('roles', 'role')->ignore($this->route('id')),
+            ],
+        ];
+    }
+
+    /**
+     * Custom messages for validation errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'role.required' => 'A szerepkör megadása kötelező.',
+            'role.string' => 'A szerepkörnek szövegnek kell lennie.',
+            'role.unique' => 'Ezzel a szerepkörrel már létezik bejegyzés az adatbázisban.',
+        ];
+    }
 }
