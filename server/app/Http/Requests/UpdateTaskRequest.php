@@ -7,35 +7,28 @@ use Illuminate\Validation\Rule;
 
 class UpdateTaskRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
-{
-    return [
-        'movieid' => [
-            'required',
-            'integer',
-            Rule::unique('tasks')
-                ->where(function ($query) {
-                    return $query
-                        ->where('personid', $this->personid)
-                        ->where('roleid', $this->roleid);
-                })
-                ->ignore($this->route('task')), // vagy ->ignore($this->task)
-        ],
-        'personid' => 'required|integer',
-        'roleid'   => 'required|integer',
-    ];
-}
+    {
+        return [
+            'movieid' => [
+                'required',
+                'integer',
+                'exists:movies,id',
+                Rule::unique('tasks')
+                    ->where(fn ($query) =>
+                        $query->where('personid', $this->personid)
+                              ->where('roleid', $this->roleid)
+                    )
+                    ->ignore($this->route('task')),
+            ],
+
+            'personid' => 'required|integer|exists:people,id',
+            'roleid'   => 'required|integer|exists:roles,id',
+        ];
+    }
 }
