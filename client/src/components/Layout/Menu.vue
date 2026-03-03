@@ -21,6 +21,9 @@
         <RouterLink v-if="!isLoggedIn" class="signin-btn" to="/login">
           Sign In
         </RouterLink>
+        <RouterLink v-if="!isLoggedIn" class="signup-btn" to="/registration">
+          Sign Up
+        </RouterLink>
 
         <div v-else class="user-chip">
           <span>{{ userNameWithRole }}</span>
@@ -145,6 +148,15 @@ export default {
   text-decoration: none;
   background: #fff;
   color: #111;
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.4rem;
+  font-weight: 600;
+}
+
+.signup-btn {
+  text-decoration: none;
+  background: #e50914;
+  color: #fff;
   padding: 0.45rem 0.9rem;
   border-radius: 0.4rem;
   font-weight: 600;

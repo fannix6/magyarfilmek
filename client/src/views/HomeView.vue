@@ -31,7 +31,13 @@
       <section class="row-block">
         <h2>Trending Now</h2>
         <div class="row-grid">
-          <article v-for="movie in trendingMovies" :key="movie.id" class="movie-card" :style="cardStyle(movie)">
+          <article
+            v-for="movie in trendingMovies"
+            :key="movie.id"
+            class="movie-card"
+            :style="cardStyle(movie)"
+            @click="openMovie(movie)"
+          >
             <div class="card-overlay">
               <h3>{{ movie.title }}</h3>
               <p>{{ movie.produced || "-" }} - {{ movie.length || "N/A" }}</p>
@@ -44,6 +50,13 @@
         <h2>Top Cast</h2>
         <div class="actor-row">
           <article v-for="actor in topActors" :key="actor.id" class="actor-card">
+            <img
+              v-if="actor.photo"
+              class="actor-photo"
+              :src="getActorPhoto(actor.photo)"
+              :alt="actor.name"
+              @error="onPhotoError"
+            />
             <h3>{{ actor.name }}</h3>
             <p>{{ actor.creditCount }} credits</p>
           </article>
@@ -59,9 +72,10 @@
 <script>
 import { mapActions } from "pinia";
 import { useSearchStore } from "@/stores/searchStore";
-import movieService from "@/api/movieService";
 import personService from "@/api/personService";
+import movieService from "@/api/movieService";
 import taskService from "@/api/taskService";
+import { getActorPhotoUrl, getMovieTargetUrl, getTrailerThumbnailUrl } from "@/utils/media";
 
 export default {
   data() {
@@ -130,11 +144,17 @@ export default {
       }
     },
     cardStyle(item, hero = false) {
+      const thumb = getTrailerThumbnailUrl(item?.watchlink);
+      if (thumb) {
+        return {
+          backgroundImage: `linear-gradient(180deg, rgba(0,0,0,${hero ? 0.25 : 0.15}), rgba(0,0,0,0.78)), url("${thumb}")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        };
+      }
       const text = item?.title || "movie";
       let hash = 0;
-      for (let i = 0; i < text.length; i += 1) {
-        hash = text.charCodeAt(i) + ((hash << 5) - hash);
-      }
+      for (let i = 0; i < text.length; i += 1) hash = text.charCodeAt(i) + ((hash << 5) - hash);
       const hue = Math.abs(hash % 360);
       const base = hero ? 28 : 38;
       return {
@@ -146,9 +166,19 @@ export default {
       this.$router.push("/movies");
     },
     openFeaturedLink() {
-      if (this.featuredMovie.watchlink) {
-        window.open(this.featuredMovie.watchlink, "_blank", "noopener,noreferrer");
+      const target = getMovieTargetUrl(this.featuredMovie);
+      if (target) {
+        window.open(target, "_blank", "noopener,noreferrer");
       }
+    },
+    openMovie(movie) {
+      this.$router.push(`/movies/${movie.id}`);
+    },
+    getActorPhoto(photoFileName) {
+      return getActorPhotoUrl(photoFileName);
+    },
+    onPhotoError(event) {
+      event.target.style.display = "none";
     },
   },
   mounted() {
@@ -281,6 +311,7 @@ export default {
   overflow: hidden;
   position: relative;
   transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
 .movie-card:hover {
@@ -319,6 +350,14 @@ export default {
   border: 1px solid #2a2a2a;
   border-radius: 0.6rem;
   padding: 0.8rem;
+}
+.actor-photo {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  border: 1px solid #2d2d2d;
+  margin-bottom: 0.55rem;
 }
 
 .actor-card h3 {

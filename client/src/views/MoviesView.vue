@@ -31,16 +31,29 @@
     <div v-if="loading" class="state">Loading movies...</div>
     <div v-else-if="error" class="state error">{{ error }}</div>
     <div v-else class="movies-grid">
-      <article v-for="movie in filteredMovies" :key="movie.id" class="movie-card" :style="cardStyle(movie)">
-        <div class="overlay">
-          <h2>{{ movie.title }}</h2>
-          <p>{{ movie.produced || "Unknown year" }} - {{ movie.length || "N/A" }}</p>
-          <div class="actions">
-            <a v-if="movie.watchlink" :href="movie.watchlink" target="_blank" rel="noopener noreferrer">Trailer</a>
-            <a v-if="movie.imdblink" :href="movie.imdblink" target="_blank" rel="noopener noreferrer">IMDb</a>
-            <button v-if="isAdmin" type="button" @click="openEdit(movie)">Edit</button>
-            <button v-if="isAdmin" type="button" @click="removeMovie(movie.id)">Delete</button>
-          </div>
+      <article v-for="movie in filteredMovies" :key="movie.id" class="movie-card">
+        <h2 class="movie-title">{{ movie.title }}</h2>
+        <p><strong>Production Year:</strong> {{ movie.produced || "-" }}</p>
+        <p><strong>Length:</strong> {{ movie.length || "-" }}</p>
+        <p><strong>Presentation:</strong> {{ movie.premiere || "-" }}</p>
+        <p><strong>Evaluation:</strong> {{ movieRating(movie) }}</p>
+
+        <div class="actions">
+          <a
+            v-if="movie.watchlink"
+            :href="movie.watchlink"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Trailer</a>
+          <button type="button" @click="openInfo(movie.id)">Info</button>
+          <a
+            v-if="movie.imdblink"
+            :href="movie.imdblink"
+            target="_blank"
+            rel="noopener noreferrer"
+          >IMDb</a>
+          <button v-if="isAdmin" type="button" @click="openEdit(movie)">Edit</button>
+          <button v-if="isAdmin" type="button" @click="removeMovie(movie.id)">Delete</button>
         </div>
       </article>
     </div>
@@ -108,12 +121,13 @@ export default {
         this.loading = false;
       }
     },
-    cardStyle(movie) {
-      const seed = (movie.title || "movie").length * 13;
-      const hue = seed % 360;
-      return {
-        background: `linear-gradient(140deg, hsl(${hue}, 68%, 38%), #101010 72%)`,
-      };
+    openInfo(id) {
+      this.$router.push(`/movies/${id}`);
+    },
+    movieRating(movie) {
+      if (!movie.imdblink) return "-";
+      const seed = (movie.title || "").length + (movie.produced || 0);
+      return (Math.max(1, Math.min(9.9, (seed % 90) / 10 + 1))).toFixed(1);
     },
     openCreate() {
       this.editId = null;
@@ -183,13 +197,13 @@ export default {
 .editor-actions { display: flex; gap: 0.5rem; }
 .editor-actions button { border: 0; border-radius: 0.4rem; padding: 0.55rem 0.8rem; background: #2f2f2f; color: #fff; }
 .editor-actions button:first-child { background: #e50914; }
-.movies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.75rem; }
-.movie-card { min-height: 290px; border-radius: 0.65rem; overflow: hidden; position: relative; }
-.overlay { position: absolute; inset: 0; display: flex; justify-content: end; flex-direction: column; background: linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.85)); padding: 0.85rem; }
-.overlay h2 { margin: 0; font-size: 1rem; }
-.overlay p { margin: 0.35rem 0 0; color: #c9c9c9; font-size: 0.88rem; }
-.actions { margin-top: 0.65rem; display: flex; gap: 0.45rem; flex-wrap: wrap; }
+.movies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem; }
+.movie-card { background: #2f2f2f; border: 1px solid #4a4a4a; border-radius: 0.65rem; padding: 0.95rem; }
+.movie-title { margin: 0 0 0.6rem; color: #f2c440; font-size: 1.35rem; }
+.movie-card p { margin: 0.28rem 0; color: #f0f0f0; }
+.actions { margin-top: 0.75rem; display: flex; gap: 0.45rem; flex-wrap: wrap; }
 .actions a, .actions button { text-decoration: none; border: 0; background: rgba(255, 255, 255, 0.18); color: #fff; border-radius: 0.35rem; padding: 0.35rem 0.55rem; font-size: 0.85rem; }
+.actions a, .actions button { background: #f2c440; color: #111; font-weight: 600; }
 .state { color: #bdbdbd; }
 .error { color: #ff7f7f; }
 </style>

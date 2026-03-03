@@ -12,6 +12,18 @@ Route::get('/x', function () {
     return 'API';
 });
 
+// Public actor photos from database/pictures
+Route::get('photos/{filename}', function (string $filename) {
+    $safeName = basename(urldecode($filename));
+    $path = database_path('pictures/' . $safeName);
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path);
+})->where('filename', '.*');
+
 // Auth / registration
 Route::post('users/login', [UserController::class, 'login']);
 Route::post('users', [UserController::class, 'store']);

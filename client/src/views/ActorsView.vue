@@ -29,7 +29,14 @@
     <div v-else-if="error" class="state error">{{ error }}</div>
     <div v-else class="actors-grid">
       <article v-for="person in filteredActors" :key="person.id" class="actor-card">
-        <div class="avatar">{{ initials(person.name) }}</div>
+        <img
+          v-if="person.photo"
+          class="avatar-image"
+          :src="getPhoto(person.photo)"
+          :alt="person.name"
+          @error="onPhotoError"
+        />
+        <div v-else class="avatar">{{ initials(person.name) }}</div>
         <h2>{{ person.name }}</h2>
         <p>{{ creditCount(person.id) }} credits</p>
         <div v-if="isAdmin" class="row-actions">
@@ -46,6 +53,7 @@ import { mapState } from "pinia";
 import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 import personService from "@/api/personService";
 import taskService from "@/api/taskService";
+import { getActorPhotoUrl } from "@/utils/media";
 
 const emptyForm = () => ({ name: "", gender: null, photo: "" });
 
@@ -91,6 +99,12 @@ export default {
     },
     initials(name) {
       return (name || "?").split(" ").slice(0, 2).map((n) => n[0] || "").join("").toUpperCase();
+    },
+    getPhoto(photoFileName) {
+      return getActorPhotoUrl(photoFileName);
+    },
+    onPhotoError(event) {
+      event.target.style.display = "none";
     },
     openCreate() {
       this.editId = null;
@@ -154,6 +168,14 @@ export default {
 .actors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; }
 .actor-card { background: #171717; border: 1px solid #2a2a2a; border-radius: 0.65rem; padding: 0.95rem; }
 .avatar { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #e50914, #930009); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
+.avatar-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  border: 1px solid #2d2d2d;
+  margin-bottom: 0.35rem;
+}
 .actor-card h2 { margin: 0.75rem 0 0; font-size: 1rem; }
 .actor-card p { margin: 0.35rem 0 0; color: #c3c3c3; }
 .row-actions { margin-top: 0.65rem; display: flex; gap: 0.45rem; }
