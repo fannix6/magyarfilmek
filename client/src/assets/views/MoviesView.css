@@ -18,5 +18,9 @@
 .actions { margin-top: 0.75rem; display: flex; gap: 0.45rem; flex-wrap: wrap; }
 .actions a, .actions button { text-decoration: none; border: 0; background: rgba(255, 255, 255, 0.18); color: #fff; border-radius: 0.35rem; padding: 0.35rem 0.55rem; font-size: 0.85rem; }
 .actions a, .actions button { background: #e39ef8; color: #111; font-weight: 600; }
+.actions .is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
 .state { color: #bdbdbd; }
 .error { color: #ff7f7f; }

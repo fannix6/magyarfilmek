@@ -39,19 +39,19 @@
         <p><strong>Evaluation:</strong> {{ movieRating(movie) }}</p>
 
         <div class="actions">
-          <a
+          <button
             v-if="movie.watchlink"
-            :href="movie.watchlink"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Trailer</a>
-          <button type="button" @click="openInfo(movie.id)">Info</button>
-          <a
+            type="button"
+            class="is-disabled"
+            disabled
+          >Trailer</button>
+          <button type="button" class="is-disabled" disabled>Info</button>
+          <button
             v-if="movie.imdblink"
-            :href="movie.imdblink"
-            target="_blank"
-            rel="noopener noreferrer"
-          >IMDb</a>
+            type="button"
+            class="is-disabled"
+            disabled
+          >IMDb</button>
           <button v-if="isAdmin" type="button" @click="openEdit(movie)">Edit</button>
           <button v-if="isAdmin" type="button" @click="removeMovie(movie.id)">Delete</button>
         </div>
@@ -120,9 +120,6 @@ export default {
       } finally {
         this.loading = false;
       }
-    },
-    openInfo(id) {
-      this.$router.push(`/movies/${id}`);
     },
     movieRating(movie) {
       if (!movie.imdblink) return "-";

@@ -36,11 +36,11 @@
             :key="movie.id"
             class="movie-card"
             :style="cardStyle(movie)"
-            @click="openMovie(movie)"
           >
             <div class="card-overlay">
               <h3>{{ movie.title }}</h3>
               <p>{{ movie.produced || "-" }} - {{ movie.length || "N/A" }}</p>
+              <RouterLink class="card-link" :to="`/movies/${movie.id}`">Details</RouterLink>
             </div>
           </article>
         </div>
@@ -170,9 +170,6 @@ export default {
       if (target) {
         window.open(target, "_blank", "noopener,noreferrer");
       }
-    },
-    openMovie(movie) {
-      this.$router.push(`/movies/${movie.id}`);
     },
     getActorPhoto(photoFileName) {
       return getActorPhotoUrl(photoFileName);

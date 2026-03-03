@@ -48,6 +48,7 @@
 }
 
 .btn {
+  border: 0;
   border-radius: 0.4rem;
   padding: 0.55rem 0.9rem;
   text-decoration: none;
@@ -55,6 +56,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.2rem;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .btn-light {

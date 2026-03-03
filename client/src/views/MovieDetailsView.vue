@@ -14,25 +14,23 @@
             <span>{{ movie.premiere || "No premiere data" }}</span>
           </p>
           <div class="hero-actions">
-            <a
+            <button
               v-if="movie.watchlink"
+              type="button"
               class="btn btn-light"
-              :href="movie.watchlink"
-              target="_blank"
-              rel="noopener noreferrer"
+              disabled
             >
               <i class="bi bi-play-fill"></i>
               Watch Trailer
-            </a>
-            <a
+            </button>
+            <button
               v-if="movie.imdblink"
+              type="button"
               class="btn btn-dark"
-              :href="movie.imdblink"
-              target="_blank"
-              rel="noopener noreferrer"
+              disabled
             >
               IMDb
-            </a>
+            </button>
           </div>
         </div>
       </header>
