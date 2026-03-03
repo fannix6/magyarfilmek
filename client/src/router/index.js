@@ -43,13 +43,13 @@ const router = createRouter({
       },
       children: [
         {
-          path: "sport",
-          name: "sport",
-          component: () => import("@/views/SportView.vue"),
+          path: "task",
+          name: "task",
+          component: () => import("@/views/TaskView.vue"),
           beforeEnter: [checkIfNotLogged],
           meta: {
-            title: (route) => "Sport",
-            breadcrumb: "Sport",
+            title: (route) => "Task",
+            breadcrumb: "Task",
             roles: [1],
           },
         },

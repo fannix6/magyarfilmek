@@ -1,5 +1,5 @@
 import apiClient from "./axiosClient";
-const route = "/sports";
+const route = "/people";
 
 export default {
   // async getAllAbc() {
@@ -8,7 +8,7 @@ export default {
   // },
 
   async getAllSortSearch(column = "id", direction = "asc", search = "") {
-    const route = `/sportssortsearch/${column}/${direction}/${search}`;
+    const route = `/peoplesortsearch/${column}/${direction}/${search}`;
     return await apiClient.get(route);
   },
 
@@ -24,9 +24,9 @@ export default {
     direction = "asc",
     search = "",
   ) {
-    let route = `/sportspaging/${page}/${per_page}/${column}/${direction}`;
+    let route = `/peoplepaging/${page}/${per_page}/${column}/${direction}`;
     if (search) {
-      route = `/sportspaging/${page}/${per_page}/${column}/${direction}/${search}`;
+      route = `/peoplepaging/${page}/${per_page}/${column}/${direction}/${search}`;
     }
     return await apiClient.get(`${route}`);
   },

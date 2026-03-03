@@ -58,7 +58,7 @@
 <script>
 import { mapActions, mapState } from "pinia";
 //módosít
-import { useSportStore } from "@/stores/sporsStore";
+import { useSportStore } from "@/stores/taskStore";
 import { useSearchStore } from "@/stores/searchStore";
 import GenericTable from "@/components/Table/GenericTable.vue";
 import ConfirmModal from "@/components/Confirm/ConfirmModal.vue";

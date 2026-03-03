@@ -1,61 +1,41 @@
 import { defineStore } from "pinia";
 // import { useToastStore } from "@/stores/toastStore";
 import { useSearchStore } from "./searchStore";
-import service from "@/api/sportService";
+import service from "@/api/personService";
 
 // const toast = useToastStore();
 
 //változtatás
 class Item {
-  constructor(id = 0, sportNev = "") {
+  constructor(
+    id = 0,
+    name = "",
+    gender = 0,
+    photo = "",
+  ) {
     this.id = id;
-    this.sportNev = sportNev;
+    this.name = name;
+    this.gender = gender;
+    this.photo = photo;
   }
 }
 
-class Pagination {
-  constructor(current_page = 1, last_page = 1, total = 10) {
-    this.current_page = current_page;
-    this.last_page = last_page;
-    this.total = total;
-  }
-}
-
-export const useSportStore = defineStore("sports", {
+export const usePersonStore = defineStore("person", {
   state: () => ({
     item: new Item(),
     items: [new Item()],
-    pagination: new Pagination(),
-    selectedPerPage: 10,
-    selectedPerPageList: [10, 30, 50, 100],
     loading: false,
     error: null,
     sortColumn: "id",
     sortDirection: "asc",
     searchStore: useSearchStore(),
   }),
-  getters: {
-    getItemsLength() {
+   getters:{
+    getItemsLength(){
       return this.items.length;
-    },
+    }
   },
   actions: {
-    async setSelectedPerPage(value) {
-      this.selectedPerPage = value;
-      this.loading = true;
-      await this.getPaging();
-      this.loading = false;
-    },
-    setColumn(column) {
-      this.sortColumn = column;
-      const direction =
-        this.sortColumn === column && this.sortDirection === "asc"
-          ? "desc"
-          : "asc";
-      this.sortDirection = direction;
-      this.getPaging();
-    },
-
     clearItem() {
       this.item = new Item();
     },
@@ -118,35 +98,6 @@ export const useSportStore = defineStore("sports", {
       }
     },
 
-    async getPaging(page = null) {
-      this.loading = true;
-      this.error = null;
-      //Ha nincs megadva oldal, menj az aktuálisra
-      if (!page) {
-        page = this.pagination.current_page;
-      }
-      try {
-        const response = await service.getPaging(
-          page,
-          this.selectedPerPage,
-          this.sortColumn,
-          this.sortDirection,
-          this.searchStore.searchWord,
-        );
-        this.items = response.data;
-        this.pagination = response.meta;
-        return true;
-      } catch (err) {
-        this.error = err;
-        // toast.messages.push(`Az adatok nem töltődtek be`);
-        // toast.show("Error");
-        throw err;
-        return false;
-      } finally {
-        this.loading = false;
-      }
-    },
-
     // READ - Egy adat lekérése
     async getById(id) {
       this.loading = true;
@@ -179,7 +130,7 @@ export const useSportStore = defineStore("sports", {
         // toast.show("Success");
         return true;
       } catch (err) {
-        this.error = err;
+        this.error = err.response.data.errors.osztalyNev[0];
         throw err;
         return false;
       } finally {
@@ -218,7 +169,7 @@ export const useSportStore = defineStore("sports", {
       this.error = null;
       try {
         await service.delete(id);
-        // const response = await service.getAll();
+        //const response = await service.getAll();
         const response = await service.getAllSortSearch(
           this.sortColumn,
           this.sortDirection,

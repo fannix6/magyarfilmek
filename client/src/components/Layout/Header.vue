@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Vue alkalmazás Tanár</h1>
+        <h1>Magyar Filmek</h1>
     </div>
 </template>
 

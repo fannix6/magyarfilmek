@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 // import { useToastStore } from "@/stores/toastStore";
 import { useSearchStore } from "./searchStore";
-import service from "@/api/studentService";
+import service from "@/api/roleService";
 
 // const toast = useToastStore();
 
@@ -9,34 +9,14 @@ import service from "@/api/studentService";
 class Item {
   constructor(
     id = 0,
-    diakNev = "",
-    schoolclassId = null,
-    neme = true,
-    iranyitoszam = "",
-    lakHelyseg = "",
-    lakCim = "",
-    szulHelyseg = "",
-    szulDatum = null,
-    igazolvanyszam = "",
-    atlag = null,
-    osztondij = 0,
+    role = "",
   ) {
     this.id = id;
-    this.diakNev = diakNev;
-    this.schoolclassId = schoolclassId;
-    this.neme = neme;
-    this.iranyitoszam = iranyitoszam;
-    this.lakHelyseg = lakHelyseg;
-    this.lakCim = lakCim;
-    this.szulHelyseg = szulHelyseg;
-    this.szulDatum = szulDatum;
-    this.igazolvanyszam = igazolvanyszam;
-    this.atlag = atlag;
-    this.osztondij = osztondij;
+    this.role = role;
   }
 }
 
-export const useStudentStore = defineStore("student", {
+export const useRoleStore = defineStore("role", {
   state: () => ({
     item: new Item(),
     items: [new Item()],
@@ -62,7 +42,8 @@ export const useStudentStore = defineStore("student", {
       schoolclassId,
       column = "id",
       direction = null,
-    ) {
+    )
+     {
       //   const toast = useToastStore();
       this.loading = true;
       this.error = null;
