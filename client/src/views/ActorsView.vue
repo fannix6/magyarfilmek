@@ -152,34 +152,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.actors-page { max-width: 1280px; margin: 0 auto; padding: 1.3rem; }
-.page-header h1 { margin: 0; font-size: 2rem; }
-.page-header p { margin-top: 0.35rem; color: #b3b3b3; }
-.tools { display: flex; gap: 0.6rem; align-items: center; margin: 0.95rem 0 1rem; flex-wrap: wrap; }
-.search { width: min(520px, 100%); background: #1b1b1b; border: 1px solid #2e2e2e; color: #fff; border-radius: 0.45rem; padding: 0.65rem 0.75rem; }
-.btn-add { background: #e50914; border: 1px solid #e50914; color: #fff; border-radius: 0.45rem; padding: 0.62rem 0.75rem; }
-.editor { display: grid; gap: 0.5rem; margin-bottom: 1rem; background: #151515; border: 1px solid #2a2a2a; border-radius: 0.6rem; padding: 0.85rem; max-width: 520px; }
-.editor h2 { margin: 0; font-size: 1rem; }
-.editor input, .editor select { background: #202020; border: 1px solid #333; color: #fff; border-radius: 0.4rem; padding: 0.6rem 0.7rem; }
-.editor-actions { display: flex; gap: 0.5rem; }
-.editor-actions button { border: 0; border-radius: 0.4rem; padding: 0.55rem 0.8rem; background: #2f2f2f; color: #fff; }
-.editor-actions button:first-child { background: #e50914; }
-.actors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; }
-.actor-card { background: #171717; border: 1px solid #2a2a2a; border-radius: 0.65rem; padding: 0.95rem; }
-.avatar { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #e50914, #930009); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
-.avatar-image {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 0.5rem;
-  border: 1px solid #2d2d2d;
-  margin-bottom: 0.35rem;
-}
-.actor-card h2 { margin: 0.75rem 0 0; font-size: 1rem; }
-.actor-card p { margin: 0.35rem 0 0; color: #c3c3c3; }
-.row-actions { margin-top: 0.65rem; display: flex; gap: 0.45rem; }
-.row-actions button { border: 0; background: rgba(255,255,255,0.14); color: #fff; border-radius: 0.35rem; padding: 0.3rem 0.55rem; }
-.state { color: #bdbdbd; }
-.error { color: #ff7f7f; }
-</style>
+<style scoped src="@/assets/views/ActorsView.css"></style>

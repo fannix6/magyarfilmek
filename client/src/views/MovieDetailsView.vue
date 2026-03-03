@@ -58,7 +58,7 @@
 
         <div v-if="movieReviews.length === 0" class="state">No reviews yet.</div>
         <article v-for="entry in movieReviews" :key="entry.id" class="review-card">
-          <div class="score">{{ entry.score }}/10</div>
+          <div class="score">{{ entry.score }}/5</div>
           <p class="opinion">{{ entry.opinion }}</p>
           <p class="author">By {{ entry.userid === currentUserId ? "You" : `User #${entry.userid}` }}</p>
           <div v-if="canEdit(entry)" class="actions">
@@ -181,32 +181,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.details-page { max-width: 1280px; margin: 0 auto; padding: 1.2rem; }
-.hero { min-height: 56vh; border-radius: 0.9rem; overflow: hidden; position: relative; display: flex; align-items: end; }
-.shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.86)); }
-.hero-content { position: relative; z-index: 2; padding: 1.5rem; width: min(880px, 100%); }
-.hero-content h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.05; }
-.meta { margin-top: 0.7rem; display: flex; gap: 0.7rem; flex-wrap: wrap; color: #d3d3d3; }
-.hero-actions { margin-top: 1rem; display: flex; gap: 0.55rem; flex-wrap: wrap; }
-.btn { border-radius: 0.4rem; padding: 0.55rem 0.9rem; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.2rem; }
-.btn-light { background: #fff; color: #111; }
-.btn-dark { background: rgba(109,109,110,0.75); color: #fff; }
-.reviews-section { margin-top: 1.4rem; }
-.reviews-section h2 { margin: 0 0 0.75rem; }
-.hint { color: #b9b9b9; }
-.review-form { margin-bottom: 1rem; display: grid; gap: 0.55rem; max-width: 640px; background: #151515; border: 1px solid #2a2a2a; border-radius: 0.65rem; padding: 0.9rem; }
-.review-form input, .review-form textarea { background: #202020; border: 1px solid #333; color: #fff; border-radius: 0.4rem; padding: 0.6rem 0.7rem; }
-.form-actions { display: flex; gap: 0.45rem; }
-.form-actions button { border: 0; border-radius: 0.4rem; padding: 0.52rem 0.8rem; background: #2f2f2f; color: #fff; }
-.form-actions button:first-child { background: #e50914; }
-.review-card { background: #171717; border: 1px solid #2a2a2a; border-radius: 0.65rem; padding: 0.9rem; margin-bottom: 0.65rem; }
-.score { display: inline-block; background: #e50914; border-radius: 999px; padding: 0.2rem 0.55rem; font-size: 0.8rem; font-weight: 700; }
-.opinion { margin: 0.6rem 0 0; color: #d6d6d6; }
-.author { margin: 0.55rem 0 0; color: #b9b9b9; font-size: 0.9rem; }
-.actions { margin-top: 0.55rem; display: flex; gap: 0.45rem; }
-.actions button { border: 0; background: rgba(255,255,255,0.14); color: #fff; border-radius: 0.35rem; padding: 0.3rem 0.55rem; }
-.state { color: #bdbdbd; }
-.error { color: #ff7f7f; }
-</style>
-
+<style scoped src="@/assets/views/MovieDetailsView.css"></style>

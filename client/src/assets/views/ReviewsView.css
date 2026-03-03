@@ -1,0 +1,18 @@
+.reviews-page { max-width: 1280px; margin: 0 auto; padding: 1.3rem; }
+.page-header h1 { margin: 0; font-size: 2rem; }
+.page-header p { color: #b3b3b3; margin-top: 0.35rem; }
+.review-form { margin: 1rem 0; display: grid; gap: 0.55rem; max-width: 640px; background: #151515; border: 1px solid #2a2a2a; border-radius: 0.65rem; padding: 0.9rem; }
+.review-form select, .review-form input, .review-form textarea { background: #202020; border: 1px solid #333; color: #fff; border-radius: 0.4rem; padding: 0.6rem 0.7rem; }
+.form-actions { display: flex; gap: 0.5rem; }
+.form-actions button { border: 0; border-radius: 0.4rem; padding: 0.55rem 0.8rem; background: #2f2f2f; color: #fff; }
+.form-actions button:first-child { background: #e39ef8; }
+.feed { margin-top: 1rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.75rem; }
+.feed-card { background: #171717; border: 1px solid #2a2a2a; border-radius: 0.65rem; padding: 0.9rem; }
+.badge { display: inline-block; background: #e39ef8; color: #fff; border-radius: 999px; padding: 0.2rem 0.55rem; font-size: 0.72rem; font-weight: 600; }
+.feed-card h2 { margin: 0.65rem 0 0.35rem; font-size: 1.02rem; }
+.line { margin: 0; color: #d2d2d2; }
+.author { margin: 0.55rem 0 0; color: #bdbdbd; font-size: 0.9rem; }
+.actions { margin-top: 0.65rem; display: flex; gap: 0.45rem; }
+.actions button { border: 0; background: rgba(255,255,255,0.14); color: #fff; border-radius: 0.35rem; padding: 0.3rem 0.55rem; }
+.state { color: #bdbdbd; }
+.error { color: #ff7f7f; }
