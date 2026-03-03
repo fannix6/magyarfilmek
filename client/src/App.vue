@@ -1,45 +1,35 @@
 <template>
-  <div class="container-fluid my-container my-border mt-2">
-    <!-- Head -->
-    <Header/>
+  <div class="container-fluid my-container mt-2">
+    <Menu />
+    <Breadcrumb />
 
-    <!-- Menü -->
-    <Menu class="my-border"/>
-    <Breadcrumb class="my-border"/>
+    <RouterView class="my-content-height" />
 
-    <!-- Ide töltődnek be az oldalak -->
-    <RouterView class="my-border my-content-height"/>
-
-
-    <Footer  class="my-border"
-      :content="footerContent"
-    />
-    <ToastContanier/>
+    <Footer :content="footerContent" />
+    <ToastContanier />
   </div>
 </template>
 
 <script>
-import Menu from './components/Layout/Menu.vue';
-import Header from './components/Layout/Header.vue';
-import Footer from './components/Layout/Footer.vue';
-import Breadcrumb from './components/Layout/Breadcrumb.vue';
-import ToastContanier from './components/Message/ToastContanier.vue';
+import Menu from "./components/Layout/Menu.vue";
+import Footer from "./components/Layout/Footer.vue";
+import Breadcrumb from "./components/Layout/Breadcrumb.vue";
+import ToastContanier from "./components/Message/ToastContanier.vue";
+
 export default {
-  components:{
+  components: {
     Menu,
-    Header,
     Footer,
     Breadcrumb,
     ToastContanier,
   },
   data() {
     return {
-      footerContent: "Ez egy másik lábléc szöveg",
-    }
-  }
+      footerContent: "Ez egy masik lablec szoveg",
+    };
+  },
 };
 </script>
 
 <style>
-
 </style>
