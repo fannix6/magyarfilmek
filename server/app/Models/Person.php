@@ -10,8 +10,10 @@ class Person extends Model
     /** @use HasFactory<\Database\Factories\RoleFactory> */
     use HasFactory;
 
-     protected $fillable = [
+    protected $fillable = [
         'name',
+        'gender',
+        'photo',
     ];
 
     /**

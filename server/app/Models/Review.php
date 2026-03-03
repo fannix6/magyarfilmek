@@ -9,4 +9,16 @@ class Review extends Model
 {
     /** @use HasFactory<\Database\Factories\ReviewFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'score',
+        'opinion',
+        'movieid',
+        'userid',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

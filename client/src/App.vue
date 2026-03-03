@@ -1,35 +1,32 @@
 <template>
-  <div class="container-fluid my-container mt-2">
+  <div class="app-shell">
     <Menu />
-    <Breadcrumb />
-
-    <RouterView class="my-content-height" />
-
-    <Footer :content="footerContent" />
+    <main class="app-main">
+      <RouterView />
+    </main>
     <ToastContanier />
   </div>
 </template>
 
 <script>
 import Menu from "./components/Layout/Menu.vue";
-import Footer from "./components/Layout/Footer.vue";
-import Breadcrumb from "./components/Layout/Breadcrumb.vue";
 import ToastContanier from "./components/Message/ToastContanier.vue";
 
 export default {
   components: {
     Menu,
-    Footer,
-    Breadcrumb,
     ToastContanier,
-  },
-  data() {
-    return {
-      footerContent: "Ez egy masik lablec szoveg",
-    };
   },
 };
 </script>
 
-<style>
+<style scoped>
+.app-shell {
+  min-height: 100vh;
+  background: #0b0b0b;
+}
+
+.app-main {
+  min-height: calc(100vh - 76px);
+}
 </style>

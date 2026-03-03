@@ -1,21 +1,33 @@
 :root {
-  --my-border-space: 0px;
+  --nf-bg: #0b0b0b;
+  --nf-surface: #141414;
+  --nf-soft: #232323;
+  --nf-text: #f5f5f5;
+  --nf-muted: #b3b3b3;
+  --nf-accent: #e50914;
 }
 
-.my-container {
-  max-width: 100%;
-  padding-left: 0;
-  padding-right: 0;
+* {
+  box-sizing: border-box;
 }
 
-.my-border {
-  border: 0;
+html,
+body,
+#app {
+  min-height: 100%;
 }
 
-.my-pointer {
-  cursor: pointer;
+body {
+  margin: 0;
+  background: var(--nf-bg);
+  color: var(--nf-text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a {
+  color: inherit;
 }
 
 .my-content-height {
-  min-height: calc(100vh - 259px + var(--my-border-space));
+  min-height: calc(100vh - 260px);
 }

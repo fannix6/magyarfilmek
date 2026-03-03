@@ -1,79 +1,32 @@
 <template>
-  <header class="cinema-header">
-    <nav class="navbar navbar-expand-lg cinema-nav">
-      <div class="container-fluid cinema-inner">
-        <RouterLink class="cinema-brand" to="/">
-          <span class="brand-icon">
-            <i class="bi bi-film"></i>
-          </span>
-          <span class="brand-text">Cinema<span class="brand-accent">Hub</span></span>
-        </RouterLink>
+  <header class="nf-header">
+    <nav class="nf-nav">
+      <RouterLink class="nf-brand" to="/">
+        <span class="logo-mark">N</span>
+        <span class="logo-text">FaBeTV</span>
+      </RouterLink>
 
-        <button
-          class="navbar-toggler cinema-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
+      <ul class="nf-links">
+        <li><RouterLink to="/" class="nf-link">Home</RouterLink></li>
+        <li><RouterLink to="/movies" class="nf-link">Movies</RouterLink></li>
+        <li><RouterLink to="/reviews" class="nf-link">Reviews</RouterLink></li>
+        <li><RouterLink to="/actors" class="nf-link">Actors</RouterLink></li>
+      </ul>
+
+      <div class="nf-actions">
+        <button class="icon-btn" type="button" @click="goSearch">
+          <i class="bi bi-search"></i>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mx-auto cinema-menu">
-            <li class="nav-item">
-              <RouterLink class="nav-link cinema-link" to="/">
-                <i class="bi bi-grid-1x2-fill"></i>
-                Home
-              </RouterLink>
-            </li>
-            <li class="nav-item">
-              <RouterLink class="nav-link cinema-link" to="/adatok/student">
-                <i class="bi bi-film"></i>
-                Movies
-              </RouterLink>
-            </li>
-            <li class="nav-item">
-              <RouterLink class="nav-link cinema-link" to="/adatok/users">
-                <i class="bi bi-star"></i>
-                Reviews
-              </RouterLink>
-            </li>
-            <li class="nav-item">
-              <RouterLink class="nav-link cinema-link" to="/adatok/sport">
-                <i class="bi bi-people"></i>
-                Actors
-              </RouterLink>
-            </li>
-          </ul>
+        <RouterLink v-if="!isLoggedIn" class="signin-btn" to="/login">
+          Sign In
+        </RouterLink>
 
-          <div class="cinema-actions">
-            <button
-              type="button"
-              class="cinema-search"
-              aria-label="Kereses"
-              @click="onClickSearchButton"
-            >
-              <i class="bi bi-search"></i>
-            </button>
-
-            <RouterLink v-if="!isLoggedIn" class="cinema-signin" to="/login">
-              <i class="bi bi-box-arrow-in-right"></i>
-              Sign In
-            </RouterLink>
-
-            <div v-else class="cinema-user">
-              <RouterLink class="cinema-profile" to="/">
-                <i class="bi bi-person"></i>
-                {{ userNameWithRole }}
-              </RouterLink>
-              <button class="cinema-logout" type="button" @click="onClickLogut()">
-                <i class="bi bi-box-arrow-right"></i>
-              </button>
-            </div>
-          </div>
+        <div v-else class="user-chip">
+          <span>{{ userNameWithRole }}</span>
+          <button type="button" class="logout-btn" @click="onLogout">
+            <i class="bi bi-box-arrow-right"></i>
+          </button>
         </div>
       </div>
     </nav>
@@ -82,41 +35,23 @@
 
 <script>
 import { mapActions, mapState } from "pinia";
-import { useSearchStore } from "@/stores/searchStore";
 import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 
 export default {
-  data() {
-    return {
-      searchWordInput: "",
-    };
-  },
-  watch: {
-    searchWordInput(value) {
-      if (!value) {
-        this.resetSearchWord();
-      }
-    },
-    searchWord(value) {
-      this.searchWordInput = value;
-    },
-  },
   computed: {
-    ...mapState(useSearchStore, ["searchWord"]),
     ...mapState(useUserLoginLogoutStore, ["isLoggedIn", "userNameWithRole"]),
   },
   methods: {
-    ...mapActions(useSearchStore, ["resetSearchWord", "setSearchWord"]),
     ...mapActions(useUserLoginLogoutStore, ["logout"]),
-    onClickSearchButton() {
-      this.setSearchWord(this.searchWordInput);
+    goSearch() {
+      this.$router.push("/movies");
     },
-    async onClickLogut() {
+    async onLogout() {
       try {
         await this.logout();
         this.$router.push("/");
       } catch (error) {
-        console.log("Kijelentkezesi hiba!");
+        console.log("Logout failed");
       }
     },
   },
@@ -124,149 +59,121 @@ export default {
 </script>
 
 <style scoped>
-:global(:root) {
-  --cinema-bg: #060817;
-  --cinema-surface: #0e1228;
-  --cinema-muted: #c6ccd8;
-  --cinema-yellow: #ffb800;
-  --cinema-yellow-soft: rgba(255, 184, 0, 0.2);
-}
-
-.cinema-header {
+.nf-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.45));
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: radial-gradient(circle at 20% -180%, #2a326b 0%, transparent 55%),
-    linear-gradient(180deg, #070914 0%, #05060f 100%);
 }
 
-.cinema-nav {
-  padding: 0.6rem 1rem;
-}
-
-.cinema-inner {
-  gap: 1rem;
-}
-
-.cinema-brand {
-  align-items: center;
-  color: #fff;
-  display: inline-flex;
-  font-size: 1.75rem;
-  font-weight: 700;
-  gap: 0.65rem;
-  letter-spacing: 0.2px;
-  text-decoration: none;
-}
-
-.brand-icon {
-  align-items: center;
-  background-color: var(--cinema-yellow);
-  border-radius: 0.6rem;
-  color: #111;
-  display: inline-flex;
-  font-size: 1.1rem;
-  height: 2rem;
-  justify-content: center;
-  width: 2rem;
-}
-
-.brand-accent {
-  color: var(--cinema-yellow);
-}
-
-.cinema-menu {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 0.9rem;
-  gap: 0.25rem;
-  padding: 0.25rem;
-}
-
-.cinema-link {
-  align-items: center;
-  border-radius: 0.7rem;
-  color: var(--cinema-muted);
-  display: inline-flex;
-  font-weight: 500;
-  gap: 0.45rem;
-  padding: 0.55rem 0.85rem;
-}
-
-.cinema-link:hover {
-  background-color: rgba(255, 255, 255, 0.06);
-  color: #fff;
-}
-
-.cinema-link.router-link-exact-active,
-.cinema-link.router-link-active {
-  background-color: var(--cinema-yellow-soft);
-  color: var(--cinema-yellow);
-}
-
-.cinema-actions {
-  align-items: center;
+.nf-nav {
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 76px;
+  padding: 0.75rem 1.2rem;
   display: flex;
-  gap: 0.9rem;
-  margin-left: auto;
-}
-
-.cinema-search {
-  background: transparent;
-  border: 0;
-  color: #f4f6fb;
-  font-size: 1.2rem;
-  padding: 0.25rem;
-}
-
-.cinema-signin {
   align-items: center;
-  background-color: var(--cinema-yellow);
-  border-radius: 0.7rem;
-  color: #111;
-  display: inline-flex;
-  font-weight: 600;
-  gap: 0.5rem;
-  padding: 0.55rem 1rem;
+  gap: 1.2rem;
+}
+
+.nf-brand {
   text-decoration: none;
-}
-
-.cinema-signin:hover {
-  background-color: #ffc933;
-}
-
-.cinema-user {
-  align-items: center;
   display: inline-flex;
-  gap: 0.5rem;
-}
-
-.cinema-profile {
   align-items: center;
-  color: #f4f6fb;
-  display: inline-flex;
-  gap: 0.35rem;
-  text-decoration: none;
+  gap: 0.55rem;
 }
 
-.cinema-logout {
-  background: transparent;
-  border: 0;
-  color: #f4f6fb;
+.logo-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #e50914;
+  color: #fff;
+  font-weight: 800;
+}
+
+.logo-text {
   font-size: 1.25rem;
-  padding: 0.15rem;
+  font-weight: 700;
+  color: #fff;
 }
 
-.cinema-toggler {
-  border-color: rgba(255, 255, 255, 0.3);
+.nf-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.95rem;
 }
 
-@media (max-width: 991px) {
-  .cinema-menu {
-    margin: 1rem 0;
-    width: fit-content;
+.nf-link {
+  text-decoration: none;
+  color: #d6d6d6;
+  font-weight: 500;
+  padding: 0.45rem 0.65rem;
+  border-radius: 0.4rem;
+}
+
+.nf-link.router-link-exact-active,
+.nf-link.router-link-active,
+.nf-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nf-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.icon-btn,
+.logout-btn {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.signin-btn {
+  text-decoration: none;
+  background: #fff;
+  color: #111;
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.4rem;
+  font-weight: 600;
+}
+
+.user-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 880px) {
+  .nf-nav {
+    flex-wrap: wrap;
+    gap: 0.7rem;
   }
 
-  .cinema-actions {
-    margin: 0 0 0.6rem;
+  .nf-links {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 0.3rem;
   }
 }
 </style>

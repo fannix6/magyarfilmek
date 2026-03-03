@@ -19,27 +19,25 @@ class UpdatePersonRequest extends FormRequest
                 'sometimes',
                 'required',
                 'string',
-                'max:125',
-                Rule::unique('people', 'name')->ignore($this->route('person')),
+                'max:50',
+                Rule::unique('people', 'name')->ignore($this->route('id')),
             ],
-            'gender' => 'sometimes|required|integer',
-            'photo' => 'sometimes|required|string',
+            'gender' => 'sometimes|nullable|integer|in:0,1',
+            'photo' => 'sometimes|nullable|string|max:125',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'A név megadása kötelező.',
-            'name.string' => 'A névnek szövegnek kell lennie.',
-            'name.max' => 'A név nem lehet hosszabb 125 karakternél.',
-            'name.unique' => 'Ezzel a névvel már létezik személy az adatbázisban.',
+            'name.required' => 'A nĂ©v megadĂˇsa kĂ¶telezĹ‘.',
+            'name.string' => 'A nĂ©vnek szĂ¶vegnek kell lennie.',
+            'name.max' => 'A nĂ©v nem lehet hosszabb 50 karakternĂ©l.',
+            'name.unique' => 'Ezzel a nĂ©vvel mĂˇr lĂ©tezik szemĂ©ly az adatbĂˇzisban.',
 
-            'gender.required' => 'A nem megadása kötelező.',
-            'gender.integer' => 'A nem értékének számnak kell lennie.',
-
-            'photo.required' => 'A fénykép megadása kötelező.',
-            'photo.string' => 'A fényképnek szöveg formátumúnak kell lennie (pl. URL vagy fájlnév).',
+            'gender.integer' => 'A nem Ă©rtĂ©kĂ©nek szĂˇmnak kell lennie.',
+            'gender.in' => 'A nem erteke csak 0 (no) vagy 1 (ferfi) lehet.',
+            'photo.string' => 'A fĂ©nykĂ©pnek szĂ¶veg formĂˇtumĂşnak kell lennie (pl. URL vagy fĂˇjlnĂ©v).',
         ];
     }
 }

@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Models\Review;
+use App\Policies\ReviewPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Route; // <--- EZT KELL HOZZÁADNI
-use Laravel\Sanctum\Http\Middleware\CheckAbilities; // <--- EZT KELL HOZZÁADNI
+use Illuminate\Support\Facades\Route; // <--- EZT KELL HOZZĂADNI
+use Laravel\Sanctum\Http\Middleware\CheckAbilities; // <--- EZT KELL HOZZĂADNI
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Illuminate\Support\Facades\Exceptions;
 use Illuminate\Support\Facades\Gate;
@@ -30,14 +32,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-        // Az alapértelmezett string hossza 191 karakterre csökkentése
+        // Az alapĂ©rtelmezett string hossza 191 karakterre csĂ¶kkentĂ©se
         Schema::defaultStringLength(191);
-        //Middleware regisztráció
+        //Middleware regisztrĂˇciĂł
         Route::aliasMiddleware('ability', CheckAbilities::class);
 
-        //2. KIVÉTELKEZELÉS REGISZTRÁCIÓJA
+        //2. KIVĂ‰TELKEZELĂ‰S REGISZTRĂCIĂ“JA
         Exceptions::renderable(function (AccessDeniedHttpException $e, $request) {
-            // Csak API kérésekre fusson le
+            // Csak API kĂ©rĂ©sekre fusson le
             if ($request->is('api/*')) {
                 $message = $e->getMessage() ?? 'Access denied.';
 
@@ -53,24 +55,25 @@ class AppServiceProvider extends ServiceProvider
 
         // Exceptions::renderable(function (\Throwable $e, $request) {
         //     if ($request->is('api/*')) {
-        //         // Csak a hiba idejére, hogy lásd a valódi kivételt
+        //         // Csak a hiba idejĂ©re, hogy lĂˇsd a valĂłdi kivĂ©telt
         //         if ($e->getMessage() === 'Invalid ability provided.') {
-        //             // Írd ki a konzolra (vagy logba) a teljes hibaüzenetet és stack trace-t
+        //             // ĂŤrd ki a konzolra (vagy logba) a teljes hibaĂĽzenetet Ă©s stack trace-t
         //             Log::error('Sanctum Ability Hiba:', ['exception' => $e]);
 
-        //             // Küldd vissza a részletes hibaüzenetet
+        //             // KĂĽldd vissza a rĂ©szletes hibaĂĽzenetet
         //             return response()->json([
-        //                 'message' => 'Hiba történt a képességek ellenőrzésekor.',
+        //                 'message' => 'Hiba tĂ¶rtĂ©nt a kĂ©pessĂ©gek ellenĹ‘rzĂ©sekor.',
         //                 'error_details' => $e->getMessage(),
         //                 'file' => $e->getFile(),
         //                 'line' => $e->getLine(),
-        //             ], 500); // Használjunk 500-at technikai hibára
+        //             ], 500); // HasznĂˇljunk 500-at technikai hibĂˇra
         //         }
         //     }
         // });
 
 
-        //Policy regisztráció
+        //Policy regisztrĂˇciĂł
         Gate::policy(User::class, UserPolicy::class);
+        Gate::policy(Review::class, ReviewPolicy::class);
     }
 }

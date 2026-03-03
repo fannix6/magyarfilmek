@@ -2,49 +2,56 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Review;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
+use App\Models\Review;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use AuthorizesRequests;
+
     public function index()
     {
-        //
+        return $this->apiResponse(function () {
+            return Review::query()->orderByDesc('id')->get();
+        });
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreReviewRequest $request)
     {
-        //
+        return $this->apiResponse(function () use ($request) {
+            $validated = $request->validated();
+            $validated['userid'] = $request->user()->id;
+            return Review::create($validated);
+        });
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Review $review)
+    public function show(int $id)
     {
-        //
+        return $this->apiResponse(function () use ($id) {
+            return Review::findOrFail($id);
+        });
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateReviewRequest $request, Review $review)
+    public function update(UpdateReviewRequest $request, int $id)
     {
-        //
+        return $this->apiResponse(function () use ($request, $id) {
+            $row = Review::findOrFail($id);
+            $this->authorize('update', $row);
+            $row->update($request->validated());
+            return $row;
+        });
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Review $review)
+    public function destroy(Request $request, int $id)
     {
-        //
+        return $this->apiResponse(function () use ($request, $id) {
+            $row = Review::findOrFail($id);
+            $this->authorize('delete', $row);
+            $row->delete();
+            return ['id' => $id];
+        });
     }
 }

@@ -24,7 +24,7 @@ class UpdateTaskRequest extends FormRequest
                         $query->where('personid', $this->personid)
                               ->where('roleid', $this->roleid)
                     )
-                    ->ignore($this->route('task')),
+                    ->ignore($this->route('id')),
             ],
 
             'personid' => 'required|integer|exists:people,id',
@@ -35,18 +35,18 @@ class UpdateTaskRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'movieid.required' => 'A film kiválasztása kötelező.',
-            'movieid.integer'  => 'A film azonosítónak számnak kell lennie.',
-            'movieid.exists'   => 'A kiválasztott film nem található az adatbázisban.',
-            'movieid.unique'   => 'Ez a feladat már létezik ugyanazzal a személlyel és szerepkörrel.',
+            'movieid.required' => 'A film kivĂˇlasztĂˇsa kĂ¶telezĹ‘.',
+            'movieid.integer'  => 'A film azonosĂ­tĂłnak szĂˇmnak kell lennie.',
+            'movieid.exists'   => 'A kivĂˇlasztott film nem talĂˇlhatĂł az adatbĂˇzisban.',
+            'movieid.unique'   => 'Ez a feladat mĂˇr lĂ©tezik ugyanazzal a szemĂ©llyel Ă©s szerepkĂ¶rrel.',
 
-            'personid.required' => 'A személy kiválasztása kötelező.',
-            'personid.integer'  => 'A személy azonosítónak számnak kell lennie.',
-            'personid.exists'   => 'A kiválasztott személy nem található az adatbázisban.',
+            'personid.required' => 'A szemĂ©ly kivĂˇlasztĂˇsa kĂ¶telezĹ‘.',
+            'personid.integer'  => 'A szemĂ©ly azonosĂ­tĂłnak szĂˇmnak kell lennie.',
+            'personid.exists'   => 'A kivĂˇlasztott szemĂ©ly nem talĂˇlhatĂł az adatbĂˇzisban.',
 
-            'roleid.required' => 'A szerepkör kiválasztása kötelező.',
-            'roleid.integer'  => 'A szerepkör azonosítónak számnak kell lennie.',
-            'roleid.exists'   => 'A kiválasztott szerepkör nem található az adatbázisban.',
+            'roleid.required' => 'A szerepkĂ¶r kivĂˇlasztĂˇsa kĂ¶telezĹ‘.',
+            'roleid.integer'  => 'A szerepkĂ¶r azonosĂ­tĂłnak szĂˇmnak kell lennie.',
+            'roleid.exists'   => 'A kivĂˇlasztott szerepkĂ¶r nem talĂˇlhatĂł az adatbĂˇzisban.',
         ];
     }
 }

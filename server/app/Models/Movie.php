@@ -10,8 +10,13 @@ class Movie extends Model
     /** @use HasFactory<\Database\Factories\RoleFactory> */
     use HasFactory;
 
-     protected $fillable = [
+    protected $fillable = [
         'title',
+        'produced',
+        'length',
+        'premiere',
+        'watchlink',
+        'imdblink',
     ];
 
     /**
