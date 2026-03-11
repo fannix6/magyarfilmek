@@ -10,7 +10,7 @@
           <h1>{{ movie.title }}</h1>
           <p class="meta">
             <span>{{ movie.produced || "Unknown year" }}</span>
-            <span>{{ movie.length || "N/A" }}</span>
+            <span>{{ movie.length ? movie.length + " minutes" : "N/A" }}</span>
             <span>{{ movie.premiere || "No premiere data" }}</span>
           </p>
           <div class="hero-actions">

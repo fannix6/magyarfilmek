@@ -7,7 +7,7 @@
         <h1>{{ featuredMovie.title || "Hungarian Movie Archive" }}</h1>
         <p class="hero-meta">
           <span>{{ featuredMovie.produced || "Unknown" }}</span>
-          <span>{{ featuredMovie.length || "N/A" }}</span>
+          <span>{{ featuredMovie.length ? featuredMovie.length + " minutes" : "N/A" }}</span>
           <span>{{ featuredCast }}</span>
         </p>
         <p class="hero-desc">Explore imported movies, actors and credits with a modern streaming UI.</p>
@@ -40,7 +40,7 @@
           >
             <div class="card-overlay">
               <h3>{{ movie.title }}</h3>
-              <p>{{ movie.produced || "-" }} - {{ movie.length || "N/A" }}</p>
+              <p>{{ movie.produced || "-" }} - {{ movie.length ? movie.length + " minutes" : "N/A" }}</p>
             </div>
           </article>
         </div>

@@ -34,7 +34,7 @@
       <article v-for="movie in filteredMovies" :key="movie.id" class="movie-card">
         <h2 class="movie-title">{{ movie.title }}</h2>
         <p><strong>Production Year:</strong> {{ movie.produced || "-" }}</p>
-        <p><strong>Length:</strong> {{ movie.length || "-" }}</p>
+        <p><strong>Length:</strong> {{ movie.length ? movie.length + " minutes" : "-" }}</p>
         <p><strong>Presentation:</strong> {{ movie.premiere || "-" }}</p>
         <p><strong>Evaluation:</strong> {{ movieRating(movie) }}</p>
 
