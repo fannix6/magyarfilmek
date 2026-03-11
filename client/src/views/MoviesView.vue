@@ -44,7 +44,7 @@
             :href="movie.watchlink"
             target="_blank"
             rel="noopener noreferrer"
-          >Trailer</a>
+          >Full Movie</a>
           <button type="button" @click="openInfo(movie.id)">Info</button>
           <a
             v-if="movie.imdblink"

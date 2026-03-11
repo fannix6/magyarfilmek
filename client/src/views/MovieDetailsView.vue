@@ -22,7 +22,7 @@
               rel="noopener noreferrer"
             >
               <i class="bi bi-play-fill"></i>
-              Watch Trailer
+              Watch Movie
             </a>
             <a
               v-if="movie.imdblink"
