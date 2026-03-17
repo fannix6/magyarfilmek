@@ -1,7 +1,7 @@
 <template>
   <section class="actors-page">
     <header class="page-header">
-      <h1>Actors</h1>
+      <h1 class="h1actors">Actors</h1>
       <p>{{ filteredActors.length }} people from imported dataset</p>
     </header>
 

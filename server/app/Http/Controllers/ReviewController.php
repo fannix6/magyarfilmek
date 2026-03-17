@@ -15,7 +15,10 @@ class ReviewController extends Controller
     public function index()
     {
         return $this->apiResponse(function () {
-            return Review::query()->orderByDesc('id')->get();
+            return Review::query()
+                ->with(['user:id,name'])
+                ->orderByDesc('id')
+                ->get();
         });
     }
 
@@ -31,7 +34,7 @@ class ReviewController extends Controller
     public function show(int $id)
     {
         return $this->apiResponse(function () use ($id) {
-            return Review::findOrFail($id);
+            return Review::with(['user:id,name'])->findOrFail($id);
         });
     }
 

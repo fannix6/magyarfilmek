@@ -1,8 +1,12 @@
 <template>
-  <div class="d-flex justify-content-center my-4">
-    <div class="card" style="width: 26rem">
-      <div class="card-header text-bg-primary">Login vagy regisztráció</div>
-      <div class="card-body">
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="auth-header">
+        <p class="auth-kicker">Üdv újra</p>
+        <h1>Bejelentkezés</h1>
+        <p class="auth-subtitle">Lépj be, és írhatsz értékelést a filmekhez.</p>
+      </div>
+      <div class="auth-body">
         <form
           @submit.prevent="handleSubmit"
           :class="{ 'was-validated': validated }"
@@ -26,10 +30,12 @@
             v-model="user.password"
             :label="'Jelszavad'"
           />
-          <button type="submit" class="btn btn-success">Login</button>
-          <RouterLink to="/registration" class="btn btn-primary ms-2"
-            >Regisztráció</RouterLink
-          >
+          <div class="auth-actions">
+            <button type="submit" class="btn btn-success">Belépés</button>
+            <RouterLink to="/registration" class="btn btn-outline-light"
+              >Regisztráció</RouterLink
+            >
+          </div>
         </form>
        
       </div>
@@ -78,5 +84,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style scoped src="@/assets/views/AuthView.css"></style>

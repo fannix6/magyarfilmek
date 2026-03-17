@@ -7,7 +7,7 @@
       <header class="hero" :style="heroStyle">
         <div class="shade"></div>
         <div class="hero-content">
-          <h1>{{ movie.title }}</h1>
+          <h1 class="h2title">{{ movie.title }}</h1>
           <p class="meta">
             <span>{{ movie.produced || "Unknown year" }}</span>
             <span>{{ movie.length ? movie.length + " minutes" : "N/A" }}</span>
@@ -38,7 +38,7 @@
       </header>
 
       <section class="reviews-section">
-        <h2>Reviews</h2>
+        <h2 class="h2review">Reviews</h2>
 
         <form v-if="isLoggedIn" class="review-form" @submit.prevent="saveReview">
           <input v-model.number="form.score" type="number" min="1" max="10" required placeholder="Score 1-10" />

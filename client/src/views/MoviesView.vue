@@ -1,7 +1,7 @@
 <template>
   <section class="catalog-page">
     <header class="page-header">
-      <h1>Movies</h1>
+      <h1 class="h1movies">Movies</h1>
       <p>{{ filteredMovies.length }} titles from imported dataset</p>
     </header>
 

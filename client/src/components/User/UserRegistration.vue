@@ -1,8 +1,12 @@
 <template>
-  <div class="d-flex justify-content-center my-4">
-    <div class="card" style="width: 26rem">
-      <div class="card-header text-bg-primary">Regisztráció</div>
-      <div class="card-body">
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="auth-header">
+        <p class="auth-kicker">Csatlakozz</p>
+        <h1>Regisztráció</h1>
+        <p class="auth-subtitle">Pár adat, és már írhatsz saját értékeléseket.</p>
+      </div>
+      <div class="auth-body">
         <form
           @submit.prevent="handleSubmit"
           :class="{ 'was-validated': validated }"
@@ -70,7 +74,7 @@
           <!-- Mégse -->
           <button
             type="button"
-            class="btn btn-primary ms-2"
+            class="btn btn-outline-light ms-2"
             @click="this.$router.push('/login')"
           >
             Mégsem
@@ -165,4 +169,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped src="@/assets/views/AuthView.css"></style>

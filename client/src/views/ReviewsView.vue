@@ -1,7 +1,7 @@
 <template>
   <section class="reviews-page">
     <header class="page-header">
-      <h1>Reviews</h1>
+      <h1 class="h1review">Reviews</h1>
       <p v-if="isLoggedIn">You can write a review as logged user.</p>
       <p v-else>Guest mode: read only.</p>
     </header>
@@ -70,7 +70,10 @@ export default {
       return this.reviews.map((r) => ({
         ...r,
         movieTitle: this.movieById[r.movieid]?.title || `Movie #${r.movieid}`,
-        author: r.userid === this.currentUserId ? "You" : `User #${r.userid}`,
+        author:
+          r.userid === this.currentUserId
+            ? "You"
+            : r.user?.name || `User #${r.userid}`,
       }));
     },
   },

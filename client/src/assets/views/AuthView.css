@@ -1,0 +1,110 @@
+.auth-shell {
+  min-height: calc(100vh - 76px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem;
+  background:
+    radial-gradient(600px circle at 20% 10%, rgba(227, 158, 248, 0.12), transparent 60%),
+    radial-gradient(700px circle at 80% 80%, rgba(229, 9, 20, 0.08), transparent 55%);
+}
+
+.auth-card {
+  width: min(480px, 94vw);
+  background: #141414;
+  border: 1px solid #2a2a2a;
+  border-radius: 18px;
+  padding: 1.6rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  border: 1px solid rgba(227, 158, 248, 0.2);
+  pointer-events: none;
+}
+
+.auth-header h1 {
+  margin: 0.2rem 0 0.4rem;
+  font-size: 1.7rem;
+  letter-spacing: 0.2px;
+}
+
+.auth-kicker {
+  margin: 0;
+  color: #e39ef8;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.auth-subtitle {
+  margin: 0 0 1.2rem;
+  color: #b3b3b3;
+  font-size: 0.95rem;
+}
+
+.auth-body {
+  margin-top: 0.4rem;
+}
+
+.auth-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.auth-card :deep(.form-label) {
+  color: #d7d7d7;
+  font-size: 0.9rem;
+}
+
+.auth-card :deep(.form-control) {
+  background: #1f1f1f;
+  border: 1px solid #2f2f2f;
+  color: #f5f5f5;
+  border-radius: 0.55rem;
+  padding: 0.55rem 0.7rem;
+}
+
+.auth-card :deep(.form-control:focus) {
+  border-color: #e39ef8;
+  box-shadow: 0 0 0 0.2rem rgba(227, 158, 248, 0.18);
+}
+
+.auth-card :deep(.input-group .btn) {
+  border-radius: 0.55rem;
+  border: 1px solid #2f2f2f;
+  color: #d7d7d7;
+  background: #1f1f1f;
+}
+
+.auth-card :deep(.btn-success) {
+  background: #e39ef8;
+  border-color: #e39ef8;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.auth-card :deep(.btn-success:hover) {
+  filter: brightness(0.95);
+}
+
+.auth-card :deep(.btn-outline-light) {
+  border-color: #3a3a3a;
+  color: #eaeaea;
+}
+
+.auth-card :deep(.btn-outline-light:hover) {
+  background: #242424;
+}
+
+.auth-card :deep(.invalid-feedback) {
+  color: #ff7f7f;
+}
