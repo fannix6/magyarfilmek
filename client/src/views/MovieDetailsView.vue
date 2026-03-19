@@ -33,6 +33,14 @@
             >
               IMDb
             </a>
+            <div class="avg-score" v-if="reviewCount">
+              <span class="avg-score__value">{{ averageScore }}</span>
+              <span class="avg-score__meta">/10 · {{ reviewCount }} review{{ reviewCount === 1 ? "" : "s" }}</span>
+            </div>
+            <div class="avg-score avg-score--empty" v-else>
+              <span class="avg-score__value">N/A</span>
+              <span class="avg-score__meta">No reviews yet</span>
+            </div>
           </div>
         </div>
       </header>
@@ -58,7 +66,7 @@
 
         <div v-if="movieReviews.length === 0" class="state">No reviews yet.</div>
         <article v-for="entry in movieReviews" :key="entry.id" class="review-card">
-          <div class="score">{{ entry.score }}/5</div>
+          <div class="score">{{ entry.score }}/10</div>
           <p class="opinion">{{ entry.opinion }}</p>
           <p class="author">By {{ entry.userid === currentUserId ? "You" : `User #${entry.userid}` }}</p>
           <div v-if="canEdit(entry)" class="actions">
@@ -112,6 +120,14 @@ export default {
     },
     movieReviews() {
       return this.reviews.filter((r) => r.movieid === this.movieId);
+    },
+    reviewCount() {
+      return this.movieReviews.length;
+    },
+    averageScore() {
+      if (!this.reviewCount) return "N/A";
+      const total = this.movieReviews.reduce((sum, r) => sum + (Number(r.score) || 0), 0);
+      return (total / this.reviewCount).toFixed(1);
     },
   },
   methods: {

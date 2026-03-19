@@ -45,6 +45,7 @@
   display: flex;
   gap: 0.55rem;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .btn {
@@ -65,6 +66,34 @@
 .btn-dark {
   background: rgba(109, 109, 110, 0.75);
   color: #fff;
+}
+
+.avg-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.6rem;
+  background: rgba(15, 15, 15, 0.7);
+  border: 1px solid rgba(227, 158, 248, 0.5);
+  min-width: 120px;
+}
+
+.avg-score__value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+
+.avg-score__meta {
+  font-size: 0.85rem;
+  color: #d0d0d0;
+}
+
+.avg-score--empty {
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .reviews-section {

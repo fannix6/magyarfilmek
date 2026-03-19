@@ -75,6 +75,7 @@ import { useSearchStore } from "@/stores/searchStore";
 import personService from "@/api/personService";
 import movieService from "@/api/movieService";
 import taskService from "@/api/taskService";
+import reviewService from "@/api/reviewService";
 import { getActorPhotoUrl, getMovieTargetUrl, getTrailerThumbnailUrl } from "@/utils/media";
 
 export default {
@@ -85,6 +86,7 @@ export default {
       movies: [],
       people: [],
       tasks: [],
+      reviews: [],
       searchInput: "",
     };
   },
@@ -96,7 +98,33 @@ export default {
       return this.cardStyle(this.featuredMovie, true);
     },
     trendingMovies() {
-      return this.movies.slice(0, 18);
+      const stats = this.reviews.reduce((acc, review) => {
+        const movieId = review.movieid;
+        if (!movieId) return acc;
+        const entry = acc[movieId] || { sum: 0, count: 0 };
+        entry.sum += Number(review.score) || 0;
+        entry.count += 1;
+        acc[movieId] = entry;
+        return acc;
+      }, {});
+
+      const avgByMovie = Object.entries(stats).map(([movieId, stat]) => ({
+        movieId: Number(movieId),
+        avg: stat.count ? stat.sum / stat.count : 0,
+        count: stat.count,
+      }));
+
+      const rankedIds = avgByMovie
+        .sort((a, b) => {
+          if (b.avg !== a.avg) return b.avg - a.avg;
+          if (b.count !== a.count) return b.count - a.count;
+          return a.movieId - b.movieId;
+        })
+        .slice(0, 18)
+        .map((item) => item.movieId);
+
+      const movieById = Object.fromEntries(this.movies.map((m) => [m.id, m]));
+      return rankedIds.map((id) => movieById[id]).filter(Boolean);
     },
     topActors() {
       const countByPerson = this.tasks.reduce((acc, task) => {
@@ -128,15 +156,17 @@ export default {
       this.loading = true;
       this.error = "";
       try {
-        const [moviesRes, peopleRes, tasksRes] = await Promise.all([
+        const [moviesRes, peopleRes, tasksRes, reviewsRes] = await Promise.all([
           movieService.getAll(),
           personService.getAll(),
           taskService.getAll(),
+          reviewService.getAll(),
         ]);
 
         this.movies = Array.isArray(moviesRes.data) ? moviesRes.data : [];
         this.people = Array.isArray(peopleRes.data) ? peopleRes.data : [];
         this.tasks = Array.isArray(tasksRes.data) ? tasksRes.data : [];
+        this.reviews = Array.isArray(reviewsRes.data) ? reviewsRes.data : [];
       } catch (err) {
         this.error = "Could not load imported data from API.";
       } finally {
