@@ -27,13 +27,11 @@ export default {
         done(true);
       } catch (err) {
         if (err.response && err.response.status === 422) {
-          // Átadjuk a formnak a konkrét hibaüzeneteket (pl. "min 2 karakter")
           console.log("422:", err.response.data.errors);
           
           this.$refs.form.setServerErrors(err.response.data.errors);
-          done(false); // Nyitva tartja a modalt
+          done(false);
         } else {
-          // Minden más hiba (500, 401) esetén is értesítjük a modalt, hogy ne záródjon be
           done(false);
         }
       }

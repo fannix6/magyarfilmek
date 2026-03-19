@@ -4,7 +4,7 @@
       <div class="auth-header">
         <p class="auth-kicker">Csatlakozz</p>
         <h1>Regisztráció</h1>
-        <p class="auth-subtitle">Pár adat, és már írhatsz saját értékeléseket.</p>
+        <p class="auth-subtitle">Pár adat.</p>
       </div>
       <div class="auth-body">
         <form
