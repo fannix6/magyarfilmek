@@ -11,7 +11,10 @@
         <option :value="null" disabled>Select movie</option>
         <option v-for="movie in movies" :key="movie.id" :value="movie.id">{{ movie.title }}</option>
       </select>
-      <input v-model.number="form.score" type="number" min="1" max="10" required placeholder="Score 1-10" />
+      <div class="star-input">
+        <StarRating v-model="form.score" />
+        <span class="star-input__value">{{ form.score.toFixed(1) }}/5</span>
+      </div>
       <textarea v-model.trim="form.opinion" rows="3" required placeholder="Write your opinion"></textarea>
       <div class="form-actions">
         <button type="submit">{{ editId ? "Update" : "Post Review" }}</button>
@@ -23,7 +26,7 @@
     <div v-else-if="error" class="state error">{{ error }}</div>
     <div v-else class="feed">
       <article v-for="entry in reviewFeed" :key="entry.id" class="feed-card">
-        <div class="badge">{{ entry.score }}/10</div>
+        <StarRating :model-value="scoreToStars(entry.score)" readonly />
         <h2>{{ entry.movieTitle }}</h2>
         <p class="line">{{ entry.opinion }}</p>
         <p class="author">By {{ entry.author }}</p>
@@ -41,10 +44,13 @@ import { mapState } from "pinia";
 import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 import reviewService from "@/api/reviewService";
 import movieService from "@/api/movieService";
+import StarRating from "@/components/StarRating.vue";
+import { useConfirmStore } from "@/stores/confirmStore";
 
-const emptyForm = () => ({ movieid: null, score: 8, opinion: "" });
+const emptyForm = () => ({ movieid: null, score: 4, opinion: "" });
 
 export default {
+  components: { StarRating },
   data() {
     return {
       loading: true,
@@ -78,6 +84,12 @@ export default {
     },
   },
   methods: {
+    scoreToStars(score) {
+      return (Number(score) || 0) / 2;
+    },
+    starsToScore(stars) {
+      return Math.round((Number(stars) || 0) * 2);
+    },
     canEdit(entry) {
       return this.isAdmin || (this.currentUserId && entry.userid === this.currentUserId);
     },
@@ -96,7 +108,10 @@ export default {
     },
     async saveReview() {
       try {
-        const payload = { ...this.form };
+        const payload = {
+          ...this.form,
+          score: this.starsToScore(this.form.score),
+        };
         if (this.editId) {
           await reviewService.update(this.editId, { score: payload.score, opinion: payload.opinion });
         } else {
@@ -112,7 +127,7 @@ export default {
       this.editId = entry.id;
       this.form = {
         movieid: entry.movieid,
-        score: entry.score,
+        score: this.scoreToStars(entry.score),
         opinion: entry.opinion,
       };
     },
@@ -121,7 +136,14 @@ export default {
       this.form = emptyForm();
     },
     async removeReview(id) {
-      if (!confirm("Delete this review?")) return;
+      const confirmStore = useConfirmStore();
+      const ok = await confirmStore.open({
+        title: "Delete review?",
+        message: "This action cannot be undone.",
+        confirmText: "Delete review",
+        cancelText: "Cancel",
+      });
+      if (!ok) return;
       try {
         await reviewService.delete(id);
         await this.loadData();

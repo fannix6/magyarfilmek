@@ -65,6 +65,7 @@ import { mapState } from "pinia";
 import { useSearchStore } from "@/stores/searchStore";
 import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 import movieService from "@/api/movieService";
+import { useConfirmStore } from "@/stores/confirmStore";
 
 const emptyForm = () => ({
   title: "",
@@ -167,7 +168,14 @@ export default {
       }
     },
     async removeMovie(id) {
-      if (!confirm("Delete this movie?")) return;
+      const confirmStore = useConfirmStore();
+      const ok = await confirmStore.open({
+        title: "Delete movie?",
+        message: "This action cannot be undone.",
+        confirmText: "Delete movie",
+        cancelText: "Cancel",
+      });
+      if (!ok) return;
       try {
         await movieService.delete(id);
         await this.loadMovies();

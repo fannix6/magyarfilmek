@@ -2,9 +2,9 @@
   <div class="auth-shell">
     <div class="auth-card">
       <div class="auth-header">
-        <p class="auth-kicker">Csatlakozz</p>
-        <h1>Regisztráció</h1>
-        <p class="auth-subtitle">Pár adat.</p>
+        <p class="auth-kicker">Join us!</p>
+        <h1>Registration</h1>
+        <p class="auth-subtitle">A few thing and you can start browsing movies.</p>
       </div>
       <div class="auth-body">
         <form
@@ -14,7 +14,7 @@
         >
           <!-- User név -->
           <div class="mb-3">
-            <label for="userName" class="form-label">User neved:</label>
+            <label for="userName" class="form-label">Username</label>
             <input
               type="text"
               class="form-control"
@@ -25,7 +25,7 @@
               required
             />
             <div v-if="!serverErrors.name" class="invalid-feedback">
-              A user név kötelező, vagy 2-nél hosszabb kell legyen
+              Username is required and must be longer than 2 characters.
             </div>
             <div v-if="serverErrors.name" class="invalid-feedback d-block">
               {{ serverErrors.name[0] }}
@@ -33,7 +33,7 @@
           </div>
           <!-- Email -->
           <div class="mb-3">
-            <label for="email" class="form-label">Email címed:</label>
+            <label for="email" class="form-label">Email: </label>
             <input
               type="email"
               class="form-control"
@@ -169,4 +169,4 @@ export default {
 };
 </script>
 
-<style scoped src="@/assets/views/AuthView.css"></style>
+<style scoped src="@/assets/views/UserRegistration.css"></style>

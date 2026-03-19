@@ -34,11 +34,11 @@
               IMDb
             </a>
             <div class="avg-score" v-if="reviewCount">
-              <span class="avg-score__value">{{ averageScore }}</span>
-              <span class="avg-score__meta">/10 · {{ reviewCount }} review{{ reviewCount === 1 ? "" : "s" }}</span>
+              <StarRating :model-value="averageScore" readonly size="lg" />
+              <span class="avg-score__meta">{{ averageScore.toFixed(1) }}/5 · {{ reviewCount }} review{{ reviewCount === 1 ? "" : "s" }}</span>
             </div>
             <div class="avg-score avg-score--empty" v-else>
-              <span class="avg-score__value">N/A</span>
+              <StarRating :model-value="0" readonly size="lg" />
               <span class="avg-score__meta">No reviews yet</span>
             </div>
           </div>
@@ -49,7 +49,10 @@
         <h2 class="h2review">Reviews</h2>
 
         <form v-if="isLoggedIn" class="review-form" @submit.prevent="saveReview">
-          <input v-model.number="form.score" type="number" min="1" max="10" required placeholder="Score 1-10" />
+          <div class="star-input">
+            <StarRating v-model="form.score" />
+            <span class="star-input__value">{{ form.score.toFixed(1) }}/5</span>
+          </div>
           <textarea
             v-model.trim="form.opinion"
             rows="3"
@@ -66,7 +69,7 @@
 
         <div v-if="movieReviews.length === 0" class="state">No reviews yet.</div>
         <article v-for="entry in movieReviews" :key="entry.id" class="review-card">
-          <div class="score">{{ entry.score }}/10</div>
+          <StarRating :model-value="scoreToStars(entry.score)" readonly />
           <p class="opinion">{{ entry.opinion }}</p>
           <p class="author">By {{ entry.userid === currentUserId ? "You" : `User #${entry.userid}` }}</p>
           <div v-if="canEdit(entry)" class="actions">
@@ -85,10 +88,13 @@ import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 import movieService from "@/api/movieService";
 import reviewService from "@/api/reviewService";
 import { getTrailerThumbnailUrl } from "@/utils/media";
+import StarRating from "@/components/StarRating.vue";
+import { useConfirmStore } from "@/stores/confirmStore";
 
-const emptyForm = () => ({ score: 8, opinion: "" });
+const emptyForm = () => ({ score: 4, opinion: "" });
 
 export default {
+  components: { StarRating },
   data() {
     return {
       loading: true,
@@ -125,12 +131,18 @@ export default {
       return this.movieReviews.length;
     },
     averageScore() {
-      if (!this.reviewCount) return "N/A";
+      if (!this.reviewCount) return 0;
       const total = this.movieReviews.reduce((sum, r) => sum + (Number(r.score) || 0), 0);
-      return (total / this.reviewCount).toFixed(1);
+      return total / this.reviewCount / 2;
     },
   },
   methods: {
+    scoreToStars(score) {
+      return (Number(score) || 0) / 2;
+    },
+    starsToScore(stars) {
+      return Math.round((Number(stars) || 0) * 2);
+    },
     canEdit(entry) {
       return this.isAdmin || (this.currentUserId && entry.userid === this.currentUserId);
     },
@@ -153,10 +165,13 @@ export default {
     async saveReview() {
       try {
         if (this.editId) {
-          await reviewService.update(this.editId, { score: this.form.score, opinion: this.form.opinion });
+          await reviewService.update(this.editId, {
+            score: this.starsToScore(this.form.score),
+            opinion: this.form.opinion,
+          });
         } else {
           await reviewService.create({
-            score: this.form.score,
+            score: this.starsToScore(this.form.score),
             opinion: this.form.opinion,
             movieid: this.movieId,
           });
@@ -169,14 +184,21 @@ export default {
     },
     startEdit(entry) {
       this.editId = entry.id;
-      this.form = { score: entry.score, opinion: entry.opinion };
+      this.form = { score: this.scoreToStars(entry.score), opinion: entry.opinion };
     },
     cancelEdit() {
       this.editId = null;
       this.form = emptyForm();
     },
     async removeReview(id) {
-      if (!confirm("Delete this review?")) return;
+      const confirmStore = useConfirmStore();
+      const ok = await confirmStore.open({
+        title: "Delete review?",
+        message: "This action cannot be undone.",
+        confirmText: "Delete review",
+        cancelText: "Cancel",
+      });
+      if (!ok) return;
       try {
         await reviewService.delete(id);
         await this.loadData();

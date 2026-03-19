@@ -5,17 +5,20 @@
       <RouterView />
     </main>
     <ToastContanier />
+    <ConfirmDialog />
   </div>
 </template>
 
 <script>
 import Menu from "./components/Layout/Menu.vue";
 import ToastContanier from "./components/Message/ToastContanier.vue";
+import ConfirmDialog from "./components/ConfirmDialog.vue";
 
 export default {
   components: {
     Menu,
     ToastContanier,
+    ConfirmDialog,
   },
 };
 </script>

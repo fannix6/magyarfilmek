@@ -2,9 +2,9 @@
   <div class="auth-shell">
     <div class="auth-card">
       <div class="auth-header">
-        <p class="auth-kicker">Üdv újra</p>
-        <h1>Bejelentkezés</h1>
-        <p class="auth-subtitle">Lépj be, és írhatsz értékelést a filmekhez.</p>
+        <p class="auth-kicker">Welcome back!</p>
+        <h1 class="h1signin">Sign In</h1>
+        <p class="auth-subtitle">Sign in to start browsing movies.</p>
       </div>
       <div class="auth-body">
         <form
@@ -14,7 +14,7 @@
         >
           <!-- Email -->
           <div class="mb-3">
-            <label for="email" class="form-label">Email címed:</label>
+            <label for="email" class="form-label">Email:</label>
             <input
               type="email"
               class="form-control"
@@ -22,18 +22,18 @@
               v-model="user.email"
               required
             />
-            <div class="invalid-feedback">Az email üres, vagy helytelen</div>
+            <div class="invalid-feedback">The email is empty or incorrect.</div>
           </div>
           <!-- Password -->
           <PasswordField
             class="mt-3"
             v-model="user.password"
-            :label="'Jelszavad'"
+            :label="'Password'"
           />
           <div class="auth-actions">
-            <button type="submit" class="btn btn-success">Belépés</button>
+            <button type="submit" class="btn btn-success">Log in</button>
             <RouterLink to="/registration" class="btn btn-outline-light"
-              >Regisztráció</RouterLink
+              >Register</RouterLink
             >
           </div>
         </form>
@@ -70,7 +70,6 @@ export default {
   methods: {
     handleSubmit(event) {
       const form = event.target;
-      //Bekapcsolja a bootstrap hiba színező logikáját
       this.validated = true;
 
       if (form.checkValidity() === false) {
@@ -84,4 +83,4 @@ export default {
 };
 </script>
 
-<style scoped src="@/assets/views/AuthView.css"></style>
+<style scoped src="@/assets/views/UserLogin.css"></style>

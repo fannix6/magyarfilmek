@@ -30,6 +30,15 @@
     border-radius: 0.4rem;
     padding: 0.6rem 0.7rem;
 }
+.star-input {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.star-input__value {
+    color: #bdbdbd;
+    font-size: 0.95rem;
+}
 .form-actions {
     display: flex;
     gap: 0.5rem;

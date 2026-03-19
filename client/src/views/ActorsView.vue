@@ -54,6 +54,7 @@ import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 import personService from "@/api/personService";
 import taskService from "@/api/taskService";
 import { getActorPhotoUrl } from "@/utils/media";
+import { useConfirmStore } from "@/stores/confirmStore";
 
 const emptyForm = () => ({ name: "", gender: null, photo: "" });
 
@@ -137,7 +138,14 @@ export default {
       }
     },
     async removeActor(id) {
-      if (!confirm("Delete this actor?")) return;
+      const confirmStore = useConfirmStore();
+      const ok = await confirmStore.open({
+        title: "Delete actor?",
+        message: "This action cannot be undone.",
+        confirmText: "Delete actor",
+        cancelText: "Cancel",
+      });
+      if (!ok) return;
       try {
         await personService.delete(id);
         await this.loadData();
