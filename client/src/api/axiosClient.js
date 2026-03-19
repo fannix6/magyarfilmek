@@ -4,8 +4,21 @@ import { useToastStore } from "@/stores/toastStore";
 
 // apiClient objektum:
 // tartalmazza az összes crud függvényt
+const resolveBaseUrl = () => {
+  const envUrl = (import.meta.env.VITE_API_URL || "").trim();
+  if (envUrl) return envUrl;
+
+  // Safe fallback for prod builds without env: same-origin /api
+  if (import.meta.env.PROD && typeof window !== "undefined") {
+    return `${window.location.origin}/api`;
+  }
+
+  // Dev fallback (local Laravel default)
+  return "http://localhost:8000/api";
+};
+
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL, //..:8000/api
+  baseURL: resolveBaseUrl(), //..:8000/api
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
