@@ -21,6 +21,25 @@
     border-radius: 0.65rem;
     padding: 0.9rem;
 }
+.group-tools {
+    margin: 0.75rem 0 1rem;
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.group-tools input,
+.group-tools select {
+    background: #1b1b1b;
+    border: 1px solid #2c2c2c;
+    color: #fff;
+    border-radius: 0.45rem;
+    padding: 0.6rem 0.75rem;
+}
+.group-tools input {
+    flex: 1;
+    min-width: 220px;
+}
 .review-form select,
 .review-form input,
 .review-form textarea {
@@ -53,17 +72,61 @@
 .form-actions button:first-child {
     background: #e39ef8;
 }
-.feed {
+.groups {
     margin-top: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 0.75rem;
+    gap: 0.9rem;
 }
-.feed-card {
+.group-card {
     background: #171717;
     border: 1px solid #2a2a2a;
     border-radius: 0.65rem;
     padding: 0.9rem;
+}
+.group-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+}
+.group-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #e39ef8;
+}
+.meta {
+    margin: 0.25rem 0 0;
+    color: #b3b3b3;
+    font-size: 0.9rem;
+}
+.avg {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.avg-value {
+    color: #e39ef8;
+    font-weight: 600;
+}
+.group-details {
+    margin-top: 0.6rem;
+}
+.group-details summary {
+    cursor: pointer;
+    color: #f0f0f0;
+    font-weight: 600;
+}
+.group-list {
+    margin-top: 0.7rem;
+    display: grid;
+    gap: 0.7rem;
+}
+.review-card {
+    background: #1d1d1d;
+    border: 1px solid #2a2a2a;
+    border-radius: 0.6rem;
+    padding: 0.8rem;
 }
 .badge {
     display: inline-block;
@@ -73,17 +136,6 @@
     padding: 0.2rem 0.55rem;
     font-size: 0.72rem;
     font-weight: bold;
-}
-.feed-card h2 {
-    font-weight: bold;
-    margin: 0.65rem 0 0.35rem;
-    font-size: 1.02rem;
-    color: #b3b3b3;
-}
-.rating {
-    margin: 0 0 0.35rem;
-    color: #cfcfcf;
-    font-size: 0.9rem;
 }
 .line {
     margin: 0;

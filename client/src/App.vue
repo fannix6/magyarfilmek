@@ -23,13 +23,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.app-shell {
-  min-height: 100vh;
-  background: #0b0b0b;
-}
-
-.app-main {
-  min-height: calc(100vh - 76px);
-}
-</style>
+<style scoped src="@/assets/App.css"></style>

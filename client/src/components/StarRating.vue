@@ -80,35 +80,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.star-rating {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-}
-
-.star-rating__item {
-  border: 0;
-  background: transparent;
-  color: #e39ef8;
-  padding: 0;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.star-rating__item i {
-  font-size: 1.1rem;
-}
-
-.star-rating--lg .star-rating__item i {
-  font-size: 1.6rem;
-}
-
-.star-rating--readonly .star-rating__item {
-  cursor: default;
-}
-
-.star-rating--readonly .star-rating__item:disabled {
-  opacity: 1;
-}
-</style>
+<style scoped src="@/assets/components/StarRating.css"></style>

@@ -32,15 +32,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.custom-center-alert {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1080; /* Hogy biztosan minden felett legyen */
-  min-width: 300px; /* Opcionális: ne legyen túl összenyomva */
-  /* Egyedi, lágyabb árnyék */
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3), 0 5px 10px rgba(0, 0, 0, 0.05);
-}
-</style>
+<style scoped src="@/assets/components/ToastContanier.css"></style>
+

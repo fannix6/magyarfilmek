@@ -6,7 +6,33 @@
     </header>
 
     <div class="tools">
-      <input v-model.trim="localSearch" type="search" placeholder="Search title..." />
+      <div class="search-tabs" role="tablist" aria-label="Search mode">
+        <button
+          type="button"
+          class="search-tab"
+          :class="{ active: searchMode === 'title' }"
+          role="tab"
+          :aria-selected="searchMode === 'title'"
+          @click="setSearchMode('title')"
+        >
+          Title
+        </button>
+        <button
+          type="button"
+          class="search-tab"
+          :class="{ active: searchMode === 'year' }"
+          role="tab"
+          :aria-selected="searchMode === 'year'"
+          @click="setSearchMode('year')"
+        >
+          Year
+        </button>
+      </div>
+      <input
+        v-model.trim="localSearch"
+        type="search"
+        :placeholder="searchMode === 'year' ? 'Search year...' : 'Search title...'"
+      />
       <select v-model="sortKey">
         <option value="title">Title</option>
         <option value="produced">Year</option>
@@ -61,7 +87,7 @@
 </template>
 
 <script>
-import { mapState } from "pinia";
+import { mapState, mapActions } from "pinia";
 import { useSearchStore } from "@/stores/searchStore";
 import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 import movieService from "@/api/movieService";
@@ -90,7 +116,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(useSearchStore, ["searchWord"]),
+    ...mapState(useSearchStore, ["searchWord", "searchMode"]),
     ...mapState(useUserLoginLogoutStore, ["role", "isLoggedIn"]),
     isAdmin() {
       return this.isLoggedIn && this.role === 1;
@@ -101,7 +127,14 @@ export default {
         if (this.sortKey === "produced") return (b.produced || 0) - (a.produced || 0);
         return (a.title || "").localeCompare(b.title || "");
       });
-      return sorted.filter((m) => (m.title || "").toLowerCase().includes(needle));
+      if (!needle) return sorted;
+      return sorted.filter((m) => {
+        if (this.searchMode === "year") {
+          const yearText = m.produced != null ? String(m.produced) : "";
+          return yearText.includes(needle);
+        }
+        return (m.title || "").toLowerCase().includes(needle);
+      });
     },
   },
   watch: {
@@ -110,6 +143,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(useSearchStore, ["setSearchMode"]),
     async loadMovies() {
       this.loading = true;
       this.error = "";

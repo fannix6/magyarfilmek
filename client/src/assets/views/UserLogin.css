@@ -108,3 +108,7 @@
 .auth-card :deep(.invalid-feedback) {
   color: #ff7f7f;
 }
+
+.h1signin{
+  color: #e39ef8;
+}

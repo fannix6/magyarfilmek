@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Regisztráció</h1>
     <UserRegistration
       ref="form"
       @createUser="handlerCreateUser"
@@ -42,6 +41,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style scoped src="@/assets/views/RegistrationView.css"></style>
