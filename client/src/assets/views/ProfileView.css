@@ -1,0 +1,95 @@
+.profile-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.3rem;
+}
+.page-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+.page-header p {
+  color: #b3b3b3;
+  margin-top: 0.35rem;
+}
+.profile-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.card {
+  background: #171717;
+  border: 1px solid #2a2a2a;
+  border-radius: 0.65rem;
+  padding: 0.95rem;
+}
+.card h2 {
+  margin: 0 0 0.6rem;
+  color: #e39ef8;
+}
+.row {
+  color: #bcbcbc;
+  font-weight: lighter;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(103, 99, 99, 0.289);
+}
+.row:last-child {
+  border-bottom: 0;
+}
+.row span {
+  color: #e39ef88e;
+  font-weight: bold;
+  font-size: large;
+}
+.review-list {
+  display: grid;
+  gap: 0.7rem;
+}
+.review-card {
+  background: #1d1d1d;
+  border: 1px solid #2a2a2a;
+  border-radius: 0.6rem;
+  padding: 0.8rem;
+}
+.review-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.review-head h3 {
+  margin: 0;
+  flex: 1 1 160px;
+  color: #f0f0f0;
+}
+.score {
+  color: #e39ef8;
+  font-weight: 600;
+}
+.opinion {
+  margin: 0.5rem 0 0;
+  color: #ead4d4;
+  font-style: oblique;
+}
+.state {
+  color: #bdbdbd;
+}
+.error {
+  color: #ff7f7f;
+}
+.link-btn {
+  display: inline-block;
+  margin-top: 0.6rem;
+  text-decoration: none;
+  background: #e39ef8;
+  color: #111;
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.4rem;
+  font-weight: 600;
+}
+.h1profile {
+  color: #e39ef8;
+}
+

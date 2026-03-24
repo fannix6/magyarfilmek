@@ -1,0 +1,115 @@
+ .about-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.3rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.page-header p {
+  color: #b3b3b3;
+  margin-top: 0.35rem;
+}
+
+.about-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.card {
+  background: #171717;
+  border: 1px solid #2a2a2a;
+  border-radius: 0.65rem;
+  padding: 0.95rem;
+}
+
+.card h2 {
+  margin: 0 0 0.6rem;
+  color: #e39ef8;
+}
+
+.card p {
+  margin: 0 0 0.7rem;
+  color: #e0e0e0;
+}
+
+.card ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: #d6d6d6;
+}
+
+.card li {
+  margin: 0.25rem 0;
+}
+
+.team-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.6rem 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.6rem 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.team-list li {
+  margin: 0;
+  padding: 0.55rem 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.team-list li:last-child {
+  border-bottom: 0;
+}
+
+.team-list span:last-child {
+  color: #bdbdbd;
+  font-size: 0.9rem;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.6rem 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.contact-list li {
+  margin: 0;
+  padding: 0.55rem 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.contact-list li:last-child {
+  border-bottom: 0;
+}
+
+.contact-list span:last-child {
+  color: #bdbdbd;
+  font-size: 0.9rem;
+}
+
+.h1about {
+  color: #e39ef8;
+}

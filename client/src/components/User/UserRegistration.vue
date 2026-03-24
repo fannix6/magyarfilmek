@@ -2,9 +2,11 @@
   <div class="auth-shell">
     <div class="auth-card">
       <div class="auth-header">
-        <p class="auth-kicker">Csatlakozz</p>
-        <h1>Regisztráció</h1>
-        <p class="auth-subtitle">Pár adat.</p>
+        <p class="auth-kicker">Join us!</p>
+        <h1 class="h1registration">Registration</h1>
+        <p class="auth-subtitle">
+          A few thing and you can start browsing movies.
+        </p>
       </div>
       <div class="auth-body">
         <form
@@ -14,18 +16,17 @@
         >
           <!-- User név -->
           <div class="mb-3">
-            <label for="userName" class="form-label">User neved:</label>
+            <label for="userName" class="form-label">Usernam </label>
             <input
               type="text"
               class="form-control"
               id="userName"
               v-model="userName"
               @input="clearError('name')"
-             
               required
             />
             <div v-if="!serverErrors.name" class="invalid-feedback">
-              A user név kötelező, vagy 2-nél hosszabb kell legyen
+              Username is required and must be longer than 2 characters.
             </div>
             <div v-if="serverErrors.name" class="invalid-feedback d-block">
               {{ serverErrors.name[0] }}
@@ -33,17 +34,17 @@
           </div>
           <!-- Email -->
           <div class="mb-3">
-            <label for="email" class="form-label">Email címed:</label>
+            <label for="email" class="form-label">Email </label>
             <input
               type="email"
               class="form-control"
               id="email"
               v-model="email"
-               @input="clearError('email')"
+              @input="clearError('email')"
               required
             />
             <div v-if="!serverErrors.email" class="invalid-feedback">
-              A email kötelező, vagy nem szabályos
+              Email is required or not valid.
             </div>
             <div v-if="serverErrors.email" class="invalid-feedback d-block">
               {{ serverErrors.email[0] }}
@@ -54,7 +55,7 @@
             class="mb-3"
             ref="pass1Comp"
             v-model="password"
-            :label="'Jelszavad'"
+            :label="'Password'"
             :inputRef="'firstInput'"
             :label-id="'password'"
             :serverErrors="serverErrors"
@@ -63,21 +64,21 @@
           <PasswordField
             ref="pass2Comp"
             v-model="confirmPassword"
-            :label="'Jelszavad mégegyszer'"
+            :label="'Password again'"
             :inputRef="'confirmInput'"
             :label-id="'confirmPassword'"
             :passwordErrorMessage="passwordErrorMessage"
             :serverErrors="serverErrors"
           />
           <!-- Regisztrálás -->
-          <button type="submit" class="btn btn-success">Regisztrálás</button>
+          <button type="submit" class="btn btn-success">Register</button>
           <!-- Mégse -->
           <button
             type="button"
             class="btn btn-outline-light ms-2"
             @click="this.$router.push('/login')"
           >
-            Mégsem
+            Cancel
           </button>
         </form>
         <ToastContainer />
@@ -114,9 +115,9 @@ export default {
 
       if (this.password !== this.confirmPassword) {
         // Ha nem egyeznek, hibát állítunk be (ezzel invalid lesz)
-        input2.setCustomValidity("A jelszavak nem egyeznek!");
+        input2.setCustomValidity("The passwords don't match!");
         //Ez a hibaüzenetet jelenítjük meg
-        this.passwordErrorMessage = "A jelszavak nem egyeznek!";
+        this.passwordErrorMessage = "The passwords don't match!";
       } else {
         // Ha egyeznek, töröljük a hibát (ezzel valid lesz)
         input2.setCustomValidity("");
@@ -139,19 +140,16 @@ export default {
           email: this.email,
           password: this.password,
         };
-        this.$emit("createUser", 
-        {
+        this.$emit("createUser", {
           data: data,
           done: (success) => {
             if (success) {
-              this.$router.push('/login');
-            }else{
+              this.$router.push("/login");
+            } else {
               console.log("Server oldali hiba, űrlap marad");
             }
-          }
-        } 
-      );
-        
+          },
+        });
       }
     },
     //422-es hiba kezelés
@@ -169,4 +167,4 @@ export default {
 };
 </script>
 
-<style scoped src="@/assets/views/AuthView.css"></style>
+<style scoped src="@/assets/views/UserRegistration.css"></style>

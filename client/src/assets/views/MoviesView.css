@@ -16,6 +16,26 @@
     display: flex;
     gap: 0.6rem;
     flex-wrap: wrap;
+    align-items: center;
+}
+.search-tabs {
+    display: inline-flex;
+    border: 1px solid #2c2c2c;
+    border-radius: 0.55rem;
+    overflow: hidden;
+    background: #141414;
+}
+.search-tab {
+    background: transparent;
+    color: #e0e0e0;
+    border: 0;
+    padding: 0.55rem 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.search-tab.active {
+    background: #e39ef8;
+    color: #111;
 }
 .tools input,
 .tools select,
@@ -53,6 +73,68 @@
     color: #fff;
     border-radius: 0.4rem;
     padding: 0.6rem 0.7rem;
+}
+.form-errors {
+    border: 1px solid #5a2a2a;
+    background: #2a1414;
+    border-radius: 0.4rem;
+    padding: 0.5rem 0.7rem;
+    color: #ffb3b3;
+}
+.form-errors p {
+    margin: 0.2rem 0;
+}
+.actors {
+    border-top: 1px solid #2a2a2a;
+    padding-top: 0.6rem;
+    display: grid;
+    gap: 0.5rem;
+}
+.actors-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+.actors-header h3 {
+    margin: 0;
+    font-size: 0.95rem;
+}
+.actors-header button {
+    border: 0;
+    border-radius: 0.4rem;
+    padding: 0.45rem 0.7rem;
+    background: #e39ef8;
+    color: #111;
+    font-weight: 600;
+}
+.actors-state {
+    color: #bdbdbd;
+    font-size: 0.9rem;
+}
+.actors-list {
+    display: grid;
+    gap: 0.45rem;
+}
+.actor-row {
+    display: grid;
+    gap: 0.4rem;
+    grid-template-columns: 1fr 1fr auto;
+    align-items: center;
+}
+.actor-row select {
+    background: #202020;
+    border: 1px solid #333;
+    color: #fff;
+    border-radius: 0.4rem;
+    padding: 0.5rem 0.6rem;
+}
+.actor-row button {
+    border: 0;
+    border-radius: 0.4rem;
+    padding: 0.5rem 0.7rem;
+    background: #2f2f2f;
+    color: #fff;
 }
 .editor-actions {
     display: flex;
@@ -118,4 +200,9 @@
 }
 .h1movies {
     color: #e39ef8;
+}
+@media (max-width: 720px) {
+    .actor-row {
+        grid-template-columns: 1fr;
+    }
 }

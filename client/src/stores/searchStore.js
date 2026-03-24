@@ -4,6 +4,7 @@ export const useSearchStore = defineStore("search", {
   //Ezek a változók
   state: () => ({
     searchWord: '',
+    searchMode: 'title',
   }),
   //valamilyen formában visszaadja
   getters: {
@@ -18,6 +19,9 @@ export const useSearchStore = defineStore("search", {
     },
     setSearchWord(value){
         this.searchWord = value.trim();
+    },
+    setSearchMode(mode){
+        this.searchMode = mode === 'year' ? 'year' : 'title';
     }
   },
 });

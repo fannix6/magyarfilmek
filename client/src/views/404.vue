@@ -13,6 +13,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style scoped src="@/assets/views/404.css"></style>

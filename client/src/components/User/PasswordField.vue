@@ -1,6 +1,6 @@
 <template>
   <div class="mb-3">
-    <label v-if="label" class="form-label" :for="labelId">{{ label }}: </label>
+    <label v-if="label" class="form-label" :for="labelId">{{ label }} </label>
     <div class="input-group">
       <input
         :type="showPassword ? 'text' : 'password'"
@@ -20,8 +20,8 @@
       </button>
       <div class="invalid-feedback">
         <!-- {{ getErrorMessage() }} -->
-          <!-- {{ $refs[inputRef]?.validationMessage || "A jelszó kötelező" }} -->
-          {{  passwordErrorMessage || "A jelszó kötelező" }}
+          <!-- {{ $refs[inputRef]?.validationMessage || "Password is required!" }} -->
+          {{  passwordErrorMessage || "Password is required." }}
       </div>
       <div v-if="serverErrors?.password" class="invalid-feedback d-block">
               {{ serverErrors?.password[0] }}
@@ -34,7 +34,7 @@
 export default {
   props: {
     modelValue: { type: String },
-    label: { type: String, default: "Jelszó" },
+    label: { type: String, default: "Password" },
     inputRef: { type: String, default: "" },
     labelId: { type: String, default: "" },
     passwordErrorMessage: {type: String, default: ""},
@@ -51,5 +51,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style scoped src="@/assets/components/PasswordField.css"></style>
