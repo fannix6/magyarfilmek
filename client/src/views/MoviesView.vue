@@ -42,12 +42,40 @@
 
     <form v-if="isAdmin && editorOpen" class="editor" @submit.prevent="saveMovie">
       <h2>{{ editId ? "Edit Movie" : "Create Movie" }}</h2>
+      <div v-if="formErrors.length" class="form-errors">
+        <p v-for="(msg, idx) in formErrors" :key="idx">{{ msg }}</p>
+      </div>
       <input v-model.trim="form.title" placeholder="Title" required />
       <input v-model.number="form.produced" type="number" min="1888" placeholder="Year" />
       <input v-model.trim="form.length" placeholder="Length (e.g. 96 min)" />
       <input v-model.trim="form.premiere" placeholder="Premiere" />
       <input v-model.trim="form.watchlink" placeholder="Trailer / watch link" />
       <input v-model.trim="form.imdblink" placeholder="IMDb link" />
+      <section v-if="!editId" class="actors">
+        <div class="actors-header">
+          <h3>Actors</h3>
+          <button type="button" @click="addActorRow">+ Add actor</button>
+        </div>
+        <div v-if="actorsLoading" class="actors-state">Loading actors...</div>
+        <div v-else-if="actorsError" class="actors-state error">{{ actorsError }}</div>
+        <div v-else-if="actors.length === 0" class="actors-state">No actors selected.</div>
+        <div v-else class="actors-list">
+          <div v-for="(entry, idx) in actors" :key="entry.key" class="actor-row">
+            <select v-model.number="entry.personid" required>
+              <option :value="null" disabled>Select actor</option>
+              <option v-for="person in people" :key="person.id" :value="person.id">
+                {{ person.name }}
+              </option>
+            </select>
+            <select v-model.number="entry.roleid">
+              <option v-for="roleItem in roles" :key="roleItem.id" :value="roleItem.id">
+                {{ roleItem.role }}
+              </option>
+            </select>
+            <button type="button" @click="removeActorRow(idx)">Remove</button>
+          </div>
+        </div>
+      </section>
       <div class="editor-actions">
         <button type="submit">Save</button>
         <button type="button" @click="closeEditor">Cancel</button>
@@ -91,6 +119,9 @@ import { mapState, mapActions } from "pinia";
 import { useSearchStore } from "@/stores/searchStore";
 import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 import movieService from "@/api/movieService";
+import personService from "@/api/personService";
+import roleService from "@/api/roleService";
+import taskService from "@/api/taskService";
 import { useConfirmStore } from "@/stores/confirmStore";
 
 const emptyForm = () => ({
@@ -100,6 +131,11 @@ const emptyForm = () => ({
   premiere: "",
   watchlink: "",
   imdblink: "",
+});
+const emptyActorRow = (roleId, key) => ({
+  key,
+  personid: null,
+  roleid: roleId,
 });
 
 export default {
@@ -113,6 +149,13 @@ export default {
       editorOpen: false,
       editId: null,
       form: emptyForm(),
+      formErrors: [],
+      people: [],
+      roles: [],
+      actors: [],
+      actorsLoading: false,
+      actorsError: "",
+      actorKey: 1,
     };
   },
   computed: {
@@ -167,10 +210,15 @@ export default {
     openCreate() {
       this.editId = null;
       this.form = emptyForm();
+      this.formErrors = [];
+      this.actors = [];
+      this.ensurePeopleRoles();
+      this.addActorRow();
       this.editorOpen = true;
     },
     openEdit(movie) {
       this.editId = movie.id;
+      this.formErrors = [];
       this.form = {
         title: movie.title || "",
         produced: movie.produced || null,
@@ -185,20 +233,82 @@ export default {
       this.editorOpen = false;
       this.editId = null;
       this.form = emptyForm();
+      this.formErrors = [];
+      this.actors = [];
+      this.actorsError = "";
+    },
+    normalizeUrl(value) {
+      const trimmed = (value || "").trim();
+      if (!trimmed) return "";
+      if (/^https?:\/\//i.test(trimmed)) return trimmed;
+      return `https://${trimmed}`;
+    },
+    async ensurePeopleRoles() {
+      if (this.actorsLoading) return;
+      if (this.people.length && this.roles.length) return;
+      this.actorsLoading = true;
+      this.actorsError = "";
+      try {
+        const [peopleRes, rolesRes] = await Promise.all([
+          personService.getAll(),
+          roleService.getAll(),
+        ]);
+        this.people = Array.isArray(peopleRes.data) ? peopleRes.data : [];
+        this.roles = Array.isArray(rolesRes.data) ? rolesRes.data : [];
+      } catch (error) {
+        this.actorsError = "Failed to load actors list.";
+      } finally {
+        this.actorsLoading = false;
+      }
+    },
+    addActorRow() {
+      const defaultRoleId = this.roles.find((r) => r.id === 1)?.id || 1;
+      this.actors.push(emptyActorRow(defaultRoleId, this.actorKey++));
+    },
+    removeActorRow(index) {
+      this.actors.splice(index, 1);
+    },
+    extractErrors(error) {
+      const errors = error?.response?.data?.errors;
+      if (!errors) return [];
+      return Object.values(errors).flat().filter(Boolean);
     },
     async saveMovie() {
       try {
-        const payload = { ...this.form };
+        this.formErrors = [];
+        const payload = {
+          ...this.form,
+          watchlink: this.normalizeUrl(this.form.watchlink),
+          imdblink: this.normalizeUrl(this.form.imdblink),
+        };
         if (!payload.produced) payload.produced = null;
         if (this.editId) {
           await movieService.update(this.editId, payload);
         } else {
-          await movieService.create(payload);
+          const created = await movieService.create(payload);
+          const movie = created?.data;
+          const actorRows = this.actors.filter((a) => Number(a.personid));
+          if (movie?.id && actorRows.length) {
+            await Promise.all(
+              actorRows.map((entry) =>
+                taskService.create({
+                  movieid: movie.id,
+                  personid: Number(entry.personid),
+                  roleid: Number(entry.roleid) || 1,
+                }),
+              ),
+            );
+          }
         }
         this.closeEditor();
         await this.loadMovies();
       } catch (error) {
-        this.error = "Save failed.";
+        const errors = this.extractErrors(error);
+        if (errors.length) {
+          this.formErrors = errors;
+        } else {
+          this.error = "Save failed.";
+        }
       }
     },
     async removeMovie(id) {

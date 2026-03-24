@@ -11,6 +11,7 @@
         <li><RouterLink to="/movies" class="nf-link">Movies</RouterLink></li>
         <li><RouterLink to="/reviews" class="nf-link">Reviews</RouterLink></li>
         <li><RouterLink to="/actors" class="nf-link">Actors</RouterLink></li>
+        <li><RouterLink to="/about" class="nf-link">About us</RouterLink></li>
       </ul>
 
       <div class="nf-actions">
@@ -18,19 +19,32 @@
           <i class="bi bi-search"></i>
         </button>
 
+        <div v-if="isLoggedIn" class="profile-menu" @keydown.escape="profileOpen = false">
+          <button
+            class="icon-btn"
+            type="button"
+            title="Profile"
+            aria-label="Profile"
+            @click="profileOpen = !profileOpen"
+          >
+            <i class="bi bi-person-lines-fill"></i>
+          </button>
+          <div v-if="profileOpen" class="profile-popover">
+            <RouterLink class="profile-item" to="/profile" @click="profileOpen = false">
+              Profile info
+            </RouterLink>
+            <button class="profile-item danger" type="button" @click="onLogout">
+              Log out
+            </button>
+          </div>
+        </div>
+
         <RouterLink v-if="!isLoggedIn" class="signin-btn" to="/login">
           Sign In
         </RouterLink>
         <RouterLink v-if="!isLoggedIn" class="signup-btn" to="/registration">
           Sign Up
         </RouterLink>
-
-        <div v-else class="user-chip">
-          <span>{{ userNameWithRole }}</span>
-          <button type="button" class="logout-btn" @click="onLogout">
-            <i class="bi bi-box-arrow-right"></i>
-          </button>
-        </div>
       </div>
     </nav>
   </header>
@@ -42,7 +56,12 @@ import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 
 export default {
   computed: {
-    ...mapState(useUserLoginLogoutStore, ["isLoggedIn", "userNameWithRole"]),
+    ...mapState(useUserLoginLogoutStore, ["isLoggedIn"]),
+  },
+  data() {
+    return {
+      profileOpen: false,
+    };
   },
   methods: {
     ...mapActions(useUserLoginLogoutStore, ["logout"]),
@@ -52,6 +71,7 @@ export default {
     async onLogout() {
       try {
         await this.logout();
+        this.profileOpen = false;
         this.$router.push("/");
       } catch (error) {
         console.log("Logout failed");

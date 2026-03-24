@@ -9,4 +9,7 @@ export default {
   async getById(id) {
     return await apiClient.get(`${route}/${id}`);
   },
+  async create(data) {
+    return await apiClient.post(route, data);
+  },
 };
