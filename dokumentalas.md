@@ -41,3 +41,16 @@ Hibajavítás
 Kliens munka elkezdése 
 Tervezés 
 Design
+
+###2026-03-16
+Észrevételek, további fejlesztések kitervelése, feladat ujragondolása
+
+###2026-03-23 
+Fejlesztések végbevitele 
+Design változtatás 
+Feladat upgrade
+
+###2026-03-24 
+Maradék feladatok kivégzése 
+
+Admin feladatok(nincs befejezve)
