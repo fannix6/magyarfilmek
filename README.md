@@ -1,45 +1,38 @@
 # Magyar Filmek
 
-Ez a projekt egy magyar filmekkel foglalkozo webalkalmazas. Az oldal celja, hogy a felhasznalok konnyen megnezhessenek regi magyar filmeket, informaciot kapjanak a szereplokrol, es velemenyt is irhassanak.
+Ez a projekt egy magyar filmekkel foglalkozó webalkalmazás. Az oldal célja, hogy a felhasználók könnyen megnézhessenek régi magyar filmeket, információt kapjanak a szereplőkről, és véleményt is írhassanak.
 
-Az alkalmazas **Laravel backenddel** es **Vue.js frontenddel** keszult.
+Az alkalmazás **Laravel backenddel** és **Vue.js frontenddel** készült.
 
-## Fo funkciok
+## Fő funkciók
 
-### Latogatoknak
-- filmek megtekintese
-- keresés a filmek kozott
-- szineszek bongeszese
-- filmadatlap megnyitasa
-- velemenyek olvasasa
+### Látogatóknak
+- filmek megtekintése
+- keresés a filmek között
+- színészek böngészése
+- filmadatlap megnyitása
+- vélemények olvasása
 
-### Regisztralt felhasznaloknak
-- regisztracio es bejelentkezes
-- sajat profil megtekintese
-- filmek ertekelese
-- szoveges velemeny irasa
-- sajat velemeny modositasa vagy torlese
+### Regisztrált felhasználóknak
+- regisztráció és bejelentkezés
+- saját profil megtekintése
+- filmek értékelése
+- szöveges vélemény írása
+- saját vélemény módosítása vagy törlése
 
 ### Adminnak
-- filmek kezelese
-- szineszek kezelese
-- felhasznalok kezelese
-- kapcsolodo adatok kezelese
+- filmek kezelése
+- színészek kezelése
+- felhasználók kezelése
+- kapcsolódó adatok kezelése
 
-## Hogyan mukodik
+## Hogyan működik
 
-- A rendszer egy adatbazisbol dolgozik, amely magyar filmek adatait tartalmazza.
-- A felhasznalok filmeket es szineszeket tudnak megtekinteni.
-- Bejelentkezes utan velemenyt is lehet irni a filmekhez.
-- Az admin tudja kezelni a tartalmakat es a felhasznalokat.
+- A rendszer egy adatbázisból dolgozik, amely magyar filmek adatait tartalmazza.
+- A felhasználók filmeket és színészeket tudnak megtekinteni.
+- Bejelentkezés után véleményt is lehet írni a filmekhez.
+- Az admin tudja kezelni a tartalmakat és a felhasználókat.
 
-## Technologiak
+## Projekt célja
 
-- **Backend:** Laravel
-- **Frontend:** Vue.js
-- **Adatbazis:** MySQL
-- **Hitelesites:** Sanctum
-
-## Projekt celja
-
-A projekt celja egy egyszeru, atlathato filmes weboldal keszitese, amely segit a magyar filmek bemutatasaban, es lehetoseget ad a felhasznaloknak a velemenyuk megosztasara is.
+A projekt célja egy egyszerű, átlátható filmes weboldal készítése, amely segít a magyar filmek bemutatásában, és lehetőséget ad a felhasználóknak a véleményük megosztására is.
