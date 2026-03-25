@@ -19,6 +19,38 @@
       </section>
 
       <section class="card">
+        <h2>Change password</h2>
+        <form class="password-form" @submit.prevent="changePassword">
+          <PasswordField
+            v-model="passwordForm.oldpassword"
+            label="Current password"
+            label-id="current-password"
+            autocomplete="current-password"
+            :error-message="passwordErrors.oldpassword"
+          />
+          <PasswordField
+            v-model="passwordForm.newpassword"
+            label="New password"
+            label-id="new-password"
+            autocomplete="new-password"
+            :error-message="passwordErrors.newpassword"
+          />
+          <PasswordField
+            v-model="passwordForm.newpassword_confirmation"
+            label="Confirm new password"
+            label-id="confirm-new-password"
+            autocomplete="new-password"
+            :error-message="passwordErrors.newpassword_confirmation"
+          />
+          <div class="password-actions">
+            <button type="submit" class="link-btn" :disabled="passwordSaving">
+              {{ passwordSaving ? "Saving..." : "Update password" }}
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
         <h2>Your reviews</h2>
         <div v-if="loading" class="state">Loading your reviews...</div>
         <div v-else-if="error" class="state error">{{ error }}</div>
@@ -43,16 +75,30 @@ import { mapState } from "pinia";
 import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 import reviewService from "@/api/reviewService";
 import movieService from "@/api/movieService";
+import userLoginLogoutService from "@/api/userLoginLogoutService";
+import PasswordField from "@/components/User/PasswordField.vue";
 import StarRating from "@/components/StarRating.vue";
+import { useToastStore } from "@/stores/toastStore";
 
 export default {
-  components: { StarRating },
+  components: { StarRating, PasswordField },
   data() {
     return {
       loading: false,
       error: "",
       reviews: [],
       movies: [],
+      passwordSaving: false,
+      passwordForm: {
+        oldpassword: "",
+        newpassword: "",
+        newpassword_confirmation: "",
+      },
+      passwordErrors: {
+        oldpassword: "",
+        newpassword: "",
+        newpassword_confirmation: "",
+      },
     };
   },
   computed: {
@@ -76,6 +122,54 @@ export default {
     },
   },
   methods: {
+    resetPasswordForm() {
+      this.passwordForm = {
+        oldpassword: "",
+        newpassword: "",
+        newpassword_confirmation: "",
+      };
+      this.passwordErrors = {
+        oldpassword: "",
+        newpassword: "",
+        newpassword_confirmation: "",
+      };
+    },
+    async changePassword() {
+      this.passwordErrors = {
+        oldpassword: "",
+        newpassword: "",
+        newpassword_confirmation: "",
+      };
+
+      if (!this.passwordForm.oldpassword) {
+        this.passwordErrors.oldpassword = "Current password is required.";
+      }
+      if (!this.passwordForm.newpassword) {
+        this.passwordErrors.newpassword = "New password is required.";
+      }
+      if (this.passwordForm.newpassword !== this.passwordForm.newpassword_confirmation) {
+        this.passwordErrors.newpassword_confirmation = "The new passwords do not match.";
+      }
+
+      if (Object.values(this.passwordErrors).some(Boolean)) return;
+
+      this.passwordSaving = true;
+      try {
+        await userLoginLogoutService.updatePassword(this.passwordForm);
+        this.resetPasswordForm();
+        const toastStore = useToastStore();
+        toastStore.messages.push("Password updated successfully.");
+        toastStore.show("Success");
+      } catch (err) {
+        const errors = err?.response?.data?.errors || {};
+        this.passwordErrors.oldpassword = errors.oldpassword?.[0] || "";
+        this.passwordErrors.newpassword = errors.newpassword?.[0] || "";
+        this.passwordErrors.newpassword_confirmation =
+          errors.newpassword_confirmation?.[0] || "";
+      } finally {
+        this.passwordSaving = false;
+      }
+    },
     scoreToStars(score) {
       return (Number(score) || 0) / 2;
     },

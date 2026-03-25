@@ -1,15 +1,18 @@
 <template>
-  <div class="mb-3">
+  <div class="mb-3 password-field">
     <label v-if="label" class="form-label" :for="labelId">{{ label }} </label>
     <div class="input-group">
       <input
         :type="showPassword ? 'text' : 'password'"
         class="form-control"
+        :class="{ 'is-invalid': !!errorMessage }"
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
-        required
+        :required="required"
         :ref="inputRef"
         :id="labelId"
+        :placeholder="placeholder"
+        :autocomplete="autocomplete"
       />
       <button
         class="btn btn-outline-secondary ms-1"
@@ -18,14 +21,9 @@
       >
         <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
       </button>
-      <div class="invalid-feedback">
-        <!-- {{ getErrorMessage() }} -->
-          <!-- {{ $refs[inputRef]?.validationMessage || "Password is required!" }} -->
-          {{  passwordErrorMessage || "Password is required." }}
-      </div>
-      <div v-if="serverErrors?.password" class="invalid-feedback d-block">
-              {{ serverErrors?.password[0] }}
-            </div>
+    </div>
+    <div v-if="errorMessage" class="invalid-feedback d-block">
+      {{ errorMessage }}
     </div>
   </div>
 </template>
@@ -37,16 +35,15 @@ export default {
     label: { type: String, default: "Password" },
     inputRef: { type: String, default: "" },
     labelId: { type: String, default: "" },
-    passwordErrorMessage: {type: String, default: ""},
-    serverErrors : { type: Object, default: {}},
+    errorMessage: { type: String, default: "" },
+    placeholder: { type: String, default: "" },
+    autocomplete: { type: String, default: "current-password" },
+    required: { type: Boolean, default: true },
   },
   data() {
     return {
       showPassword: false,
     };
-  },
-  methods: {
-    
   },
 };
 </script>

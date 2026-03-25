@@ -1,0 +1,137 @@
+.users-page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1.3rem;
+}
+
+.page-header h1 {
+  margin: 0;
+}
+
+.page-header p {
+  margin: 0.35rem 0 0;
+  color: #b3b3b3;
+}
+
+.users-title {
+  color: #e39ef8;
+  font-size: 2rem;
+}
+
+.tools {
+  margin: 1rem 0 1.2rem;
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.tools input,
+.editor input,
+.editor select {
+  background: #1b1b1b;
+  border: 1px solid #2c2c2c;
+  color: #fff;
+  border-radius: 0.45rem;
+  padding: 0.6rem 0.75rem;
+}
+
+.tools input {
+  flex: 1;
+  min-width: 280px;
+}
+
+.editor {
+  display: grid;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+  background: #151515;
+  border: 1px solid #2a2a2a;
+  border-radius: 0.6rem;
+  padding: 0.9rem;
+}
+
+.editor h2 {
+  margin: 0 0 0.2rem;
+  font-size: 1rem;
+}
+
+.form-errors {
+  border: 1px solid #5a2a2a;
+  background: #2a1414;
+  border-radius: 0.4rem;
+  padding: 0.5rem 0.7rem;
+  color: #ffb3b3;
+}
+
+.form-errors p {
+  margin: 0.2rem 0;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.editor-actions button,
+.actions-cell button {
+  border: 0;
+  border-radius: 0.45rem;
+  padding: 0.55rem 0.8rem;
+  font-weight: 600;
+}
+
+.editor-actions button:first-child,
+.actions-cell button:first-child {
+  background: #e39ef8;
+  color: #111;
+}
+
+.editor-actions button:last-child {
+  background: #2f2f2f;
+  color: #fff;
+}
+
+.users-table-wrap {
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1c1c1c;
+  border: 1px solid #323232;
+  border-radius: 0.7rem;
+  overflow: hidden;
+}
+
+.users-table th,
+.users-table td {
+  color: rgb(143, 142, 142);
+  padding: 0.85rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #2d2d2d;
+}
+
+.users-table th {
+  color: #e39ef8;
+  font-size: 0.9rem;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.danger-btn {
+  background: #4a2323;
+  color: #ffd7d7;
+}
+
+.state {
+  color: #bdbdbd;
+}
+
+.error {
+  color: #ff7f7f;
+}

@@ -16,7 +16,7 @@
         >
           <!-- User név -->
           <div class="mb-3">
-            <label for="userName" class="form-label">Usernam </label>
+            <label for="userName" class="form-label">Username</label>
             <input
               type="text"
               class="form-control"

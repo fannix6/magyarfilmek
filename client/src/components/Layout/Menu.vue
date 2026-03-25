@@ -35,6 +35,9 @@
             </RouterLink>
             <div v-if="isAdmin" class="profile-section">
               <p class="profile-section-title">Admin Tasks</p>
+              <RouterLink class="profile-item" to="/users" @click="profileOpen = false">
+                Users
+              </RouterLink>
               <RouterLink class="profile-item" to="/roles" @click="profileOpen = false">
                 Roles
               </RouterLink>

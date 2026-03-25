@@ -14,4 +14,7 @@ export default {
   getMeRefresh() {
     return apiClient.get(`/usersme`);
   },
+  updatePassword(data) {
+    return apiClient.patch(`/usersmeupdatepassword`, data);
+  },
 };

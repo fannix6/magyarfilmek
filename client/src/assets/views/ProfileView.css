@@ -27,6 +27,20 @@
   margin: 0 0 0.6rem;
   color: #e39ef8;
 }
+.password-form {
+  display: grid;
+  gap: 0.1rem;
+}
+.password-actions {
+  margin-top: 0.3rem;
+}
+.password-actions .link-btn {
+  border: 0;
+}
+.password-actions .link-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
 .row {
   color: #bcbcbc;
   font-weight: lighter;
