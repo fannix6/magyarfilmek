@@ -70,7 +70,22 @@ apiClient.interceptors.response.use(
         return Promise.reject(error);
       }
 
-      
+      if (status === 402) {
+        message = "Payment required.";
+      }
+
+      if (status === 403) {
+        message = "Access denied.";
+      }
+
+      if (status === 404) {
+        message = "Resource not found.";
+      }
+
+      if (status === 409) {
+        message = "Conflict: this record already exists or is still in use.";
+      }
+
       if (status === 500) {
         if (message.includes("1451")) {
           message =
