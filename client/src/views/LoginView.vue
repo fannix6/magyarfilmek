@@ -1,35 +1,30 @@
 <template>
   <div>
-    <UserLogin
-    @logIn="loginHandler"
-    />
-
+    <UserLogin @logIn="loginHandler" />
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from "pinia";
+import { mapActions } from "pinia";
 import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 import UserLogin from "@/components/User/UserLogin.vue";
+
 export default {
   name: "LoginView",
-  components:{
+  components: {
     UserLogin,
   },
-  
   methods: {
-    ...mapActions(useUserLoginLogoutStore,['login']),
-    async loginHandler(user){
-
+    ...mapActions(useUserLoginLogoutStore, ["login"]),
+    async loginHandler(user) {
       try {
         await this.login(user);
-        this.$router.push('/')
+        const redirectTarget = this.$route.query.redirect || "/";
+        this.$router.push(redirectTarget);
       } catch (error) {
-        console.log('Bejelentkezési hiba!');
-        
+        console.log("Bejelentkezesi hiba!");
       }
     },
-    
   },
 };
 </script>

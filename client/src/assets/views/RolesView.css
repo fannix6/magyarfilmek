@@ -1,0 +1,142 @@
+.roles-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.3rem;
+}
+.page-header h1 {
+    margin: 0;
+}
+.page-header p {
+    margin: 0.35rem 0 0;
+    color: #b3b3b3;
+}
+.roles-title {
+    color: #e39ef8;
+    font-size: 2rem;
+}
+.tools {
+    margin: 1rem 0 1.2rem;
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+.tools input,
+.btn-add {
+    background: #1b1b1b;
+    border: 1px solid #2c2c2c;
+    color: #fff;
+    border-radius: 0.45rem;
+    padding: 0.6rem 0.75rem;
+}
+.tools input {
+    flex: 1;
+    min-width: 240px;
+}
+.btn-add {
+    background: #e39ef8;
+    border-color: #e39ef8;
+    color: #111;
+    font-weight: 700;
+}
+.editor {
+    display: grid;
+    gap: 0.55rem;
+    margin-bottom: 1rem;
+    background: #151515;
+    border: 1px solid #2a2a2a;
+    border-radius: 0.6rem;
+    padding: 0.9rem;
+}
+.editor h2 {
+    margin: 0 0 0.2rem;
+    font-size: 1rem;
+}
+.editor input {
+    background: #202020;
+    border: 1px solid #333;
+    color: #fff;
+    border-radius: 0.4rem;
+    padding: 0.65rem 0.75rem;
+}
+.form-errors {
+    border: 1px solid #5a2a2a;
+    background: #2a1414;
+    border-radius: 0.4rem;
+    padding: 0.5rem 0.7rem;
+    color: #ffb3b3;
+}
+.form-errors p {
+    margin: 0.2rem 0;
+}
+.editor-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+.editor-actions button,
+.role-actions button {
+    border: 0;
+    border-radius: 0.45rem;
+    padding: 0.55rem 0.8rem;
+    font-weight: 600;
+}
+.editor-actions button:first-child,
+.role-actions button:first-child {
+    background: #e39ef8;
+    color: #111;
+}
+.editor-actions button:last-child {
+    background: #2f2f2f;
+    color: #fff;
+}
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.8rem;
+}
+.role-card {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    align-items: flex-start;
+    background: #222;
+    border: 1px solid #353535;
+    border-radius: 0.7rem;
+    padding: 0.95rem;
+}
+.role-card h2 {
+    margin: 0.2rem 0 0;
+    color: #fff;
+    font-size: 1.1rem;
+}
+.role-id {
+    margin: 0;
+    color: #a9a9a9;
+    font-size: 0.8rem;
+}
+.role-actions {
+    display: grid;
+    gap: 0.45rem;
+}
+.danger-btn {
+    background: #4a2323;
+    color: #ffd7d7;
+}
+.state {
+    color: #bdbdbd;
+}
+.error {
+    color: #ff7f7f;
+}
+.role-actions .danger-btn {
+    background: #4a2323;
+    color: #ffd7d7;
+}
+@media (max-width: 640px) {
+    .role-card {
+        flex-direction: column;
+    }
+    .role-actions {
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+    }
+}

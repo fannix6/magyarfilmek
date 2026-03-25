@@ -12,6 +12,7 @@
         <li><RouterLink to="/reviews" class="nf-link">Reviews</RouterLink></li>
         <li><RouterLink to="/actors" class="nf-link">Actors</RouterLink></li>
         <li><RouterLink to="/about" class="nf-link">About us</RouterLink></li>
+        <li v-if="isAdmin"><RouterLink to="/roles" class="nf-link">Roles</RouterLink></li>
       </ul>
 
       <div class="nf-actions">
@@ -56,7 +57,10 @@ import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 
 export default {
   computed: {
-    ...mapState(useUserLoginLogoutStore, ["isLoggedIn"]),
+    ...mapState(useUserLoginLogoutStore, ["isLoggedIn", "role"]),
+    isAdmin() {
+      return this.isLoggedIn && this.role === 1;
+    },
   },
   data() {
     return {

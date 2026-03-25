@@ -92,9 +92,14 @@
 }
 .actors-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 0.5rem;
+}
+.actors-header p {
+    margin: 0.2rem 0 0;
+    color: #a9a9a9;
+    font-size: 0.85rem;
 }
 .actors-header h3 {
     margin: 0;
@@ -115,6 +120,105 @@
 .actors-list {
     display: grid;
     gap: 0.45rem;
+}
+.people-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    background: rgba(0, 0, 0, 0.72);
+    padding: 1rem;
+}
+.people-modal-card {
+    width: min(920px, 100%);
+    max-height: 85vh;
+    overflow: auto;
+    background: #171717;
+    border: 1px solid #313131;
+    border-radius: 0.8rem;
+    padding: 1rem;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.4);
+}
+.people-modal-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 0.9rem;
+}
+.people-modal-header h3 {
+    margin: 0;
+    font-size: 1.15rem;
+}
+.people-modal-header p {
+    margin: 0.25rem 0 0;
+    color: #aeaeae;
+    font-size: 0.9rem;
+}
+.people-modal-close {
+    border: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    background: #2a2a2a;
+    color: #fff;
+    font-size: 1rem;
+}
+.people-table-wrap {
+    overflow-x: auto;
+}
+.people-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.people-table th,
+.people-table td {
+    text-align: left;
+    padding: 0.75rem 0.6rem;
+    border-bottom: 1px solid #2f2f2f;
+    vertical-align: middle;
+}
+.people-table th {
+    color: #e39ef8;
+    font-size: 0.9rem;
+}
+.people-table select {
+    width: 100%;
+    background: #202020;
+    border: 1px solid #333;
+    color: #fff;
+    border-radius: 0.4rem;
+    padding: 0.55rem 0.65rem;
+}
+.people-empty {
+    color: #bdbdbd;
+    text-align: center;
+}
+.people-modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+.people-modal-actions button,
+.danger-btn {
+    border: 0;
+    border-radius: 0.45rem;
+    padding: 0.55rem 0.8rem;
+    font-weight: 600;
+}
+.people-modal-actions button:first-child {
+    background: #e39ef8;
+    color: #111;
+}
+.people-modal-actions button:last-child {
+    background: #2f2f2f;
+    color: #fff;
+}
+.danger-btn {
+    background: #4a2323;
+    color: #ffd7d7;
 }
 .actor-row {
     display: grid;
@@ -204,5 +308,8 @@
 @media (max-width: 720px) {
     .actor-row {
         grid-template-columns: 1fr;
+    }
+    .people-modal-actions {
+        flex-direction: column;
     }
 }

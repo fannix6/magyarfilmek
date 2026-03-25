@@ -64,6 +64,21 @@ apiClient.interceptors.response.use(
 
       // 2. Speciális eset: 401 Unauthorized
       if (status === 401) {
+        const authStore = useUserLoginLogoutStore();
+        const hadToken = Boolean(authStore.token);
+
+        if (hadToken) {
+          authStore.clearSession();
+          message = "Lejart a bejelentkezesed. Jelentkezz be ujra.";
+
+          if (typeof window !== "undefined" && window.location.pathname !== "/login") {
+            window.setTimeout(() => {
+              const nextPath = `${window.location.pathname}${window.location.search}`;
+              window.location.href = `/login?redirect=${encodeURIComponent(nextPath)}`;
+            }, 100);
+          }
+        }
+
         // Ha login-nál kapunk 401-et, azt kiírhatjuk toast-ban (pl. Rossz jelszó)
         toastStore.messages.push(message);
         toastStore.show("Error");

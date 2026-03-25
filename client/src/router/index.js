@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
+import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,15 @@ const router = createRouter({
       component: () => import("@/views/ActorsView.vue"),
       meta: {
         title: () => "Actors",
+      },
+    },
+    {
+      path: "/roles",
+      name: "roles",
+      component: () => import("@/views/RolesView.vue"),
+      meta: {
+        title: () => "Roles",
+        requiresAdmin: true,
       },
     },
     {
@@ -116,6 +126,21 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
+  const authStore = useUserLoginLogoutStore();
+
+  if (to.meta.requiresAdmin) {
+    if (!authStore.isLoggedIn) {
+      return {
+        path: "/login",
+        query: { redirect: to.fullPath },
+      };
+    }
+
+    if (authStore.role !== 1) {
+      return { path: "/" };
+    }
+  }
+
   document.title = `FaBeTV - ${to.meta.title ? to.meta.title(to) : "Page"}`;
 });
 

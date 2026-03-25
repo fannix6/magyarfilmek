@@ -44,6 +44,10 @@ export const useUserLoginLogoutStore = defineStore("userLoginLogout", {
   },
 
   actions: {
+    clearSession() {
+      this.item = null;
+      localStorage.removeItem("user_data");
+    },
     canAccess(requiredRoles) {
       if (!requiredRoles || requiredRoles.length === 0) return true;
       if (!this.isLoggedIn) return false;
@@ -70,8 +74,7 @@ export const useUserLoginLogoutStore = defineStore("userLoginLogout", {
         this.error = null;
         this.loading = true;
         const response = await service.logout();
-        this.item = null;
-        localStorage.removeItem("user_data");
+        this.clearSession();
         const toastStore = useToastStore();
         toastStore.messages.push("Logout successful");
         toastStore.show("Success");
@@ -79,7 +82,7 @@ export const useUserLoginLogoutStore = defineStore("userLoginLogout", {
         return true;
       } catch (err) {
         this.error = err;
-        this.item = null;
+        this.clearSession();
         throw err;
         return false;
       } finally {
