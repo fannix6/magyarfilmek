@@ -47,6 +47,15 @@ const router = createRouter({
       },
     },
     {
+      path: "/tasks",
+      name: "tasks",
+      component: () => import("@/views/TasksView.vue"),
+      meta: {
+        title: () => "Tasks",
+        requiresAdmin: true,
+      },
+    },
+    {
       path: "/reviews",
       name: "reviews",
       component: () => import("@/views/ReviewsView.vue"),

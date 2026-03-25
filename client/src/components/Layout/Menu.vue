@@ -13,6 +13,7 @@
         <li><RouterLink to="/actors" class="nf-link">Actors</RouterLink></li>
         <li><RouterLink to="/about" class="nf-link">About us</RouterLink></li>
         <li v-if="isAdmin"><RouterLink to="/roles" class="nf-link">Roles</RouterLink></li>
+        <li v-if="isAdmin"><RouterLink to="/tasks" class="nf-link">Tasks</RouterLink></li>
       </ul>
 
       <div class="nf-actions">
