@@ -12,8 +12,6 @@
         <li><RouterLink to="/reviews" class="nf-link">Reviews</RouterLink></li>
         <li><RouterLink to="/actors" class="nf-link">Actors</RouterLink></li>
         <li><RouterLink to="/about" class="nf-link">About us</RouterLink></li>
-        <li v-if="isAdmin"><RouterLink to="/roles" class="nf-link">Roles</RouterLink></li>
-        <li v-if="isAdmin"><RouterLink to="/tasks" class="nf-link">Tasks</RouterLink></li>
       </ul>
 
       <div class="nf-actions">
@@ -35,6 +33,15 @@
             <RouterLink class="profile-item" to="/profile" @click="profileOpen = false">
               Profile info
             </RouterLink>
+            <div v-if="isAdmin" class="profile-section">
+              <p class="profile-section-title">Admin Tasks</p>
+              <RouterLink class="profile-item" to="/roles" @click="profileOpen = false">
+                Roles
+              </RouterLink>
+              <RouterLink class="profile-item" to="/tasks" @click="profileOpen = false">
+                Tasks
+              </RouterLink>
+            </div>
             <button class="profile-item danger" type="button" @click="onLogout">
               Log out
             </button>

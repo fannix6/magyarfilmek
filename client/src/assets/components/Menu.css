@@ -103,6 +103,25 @@
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
+.profile-section {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.25rem 0 0.1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 0.1rem 0;
+}
+
+.profile-section-title {
+  margin: 0;
+  padding: 0.2rem 0.6rem 0.1rem;
+  color: #b9b9b9;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .profile-item {
   text-decoration: none;
   color: #e8e8e8;
