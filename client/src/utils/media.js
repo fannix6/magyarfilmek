@@ -21,6 +21,11 @@ export function getTrailerThumbnailUrl(trailerUrl) {
   return `https://s.wordpress.com/mshots/v1/${encodeURIComponent(trailerUrl)}?w=1280`;
 }
 
+export function getMovieCoverUrl(coverFileName) {
+  if (!coverFileName) return "";
+  return `${API_URL}/covers/${encodeURIComponent(coverFileName)}`;
+}
+
 export function getMovieTargetUrl(movie) {
   return movie?.watchlink || movie?.imdblink || "";
 }

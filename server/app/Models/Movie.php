@@ -17,6 +17,7 @@ class Movie extends Model
         'premiere',
         'watchlink',
         'imdblink',
+        'cover',
     ];
 
     /**

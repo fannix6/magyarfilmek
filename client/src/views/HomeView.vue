@@ -76,7 +76,7 @@ import personService from "@/api/personService";
 import movieService from "@/api/movieService";
 import taskService from "@/api/taskService";
 import reviewService from "@/api/reviewService";
-import { getActorPhotoUrl, getMovieTargetUrl, getTrailerThumbnailUrl } from "@/utils/media";
+import { getActorPhotoUrl, getMovieCoverUrl, getMovieTargetUrl, getTrailerThumbnailUrl } from "@/utils/media";
 
 export default {
   data() {
@@ -174,7 +174,8 @@ export default {
       }
     },
     cardStyle(item, hero = false) {
-      const thumb = getTrailerThumbnailUrl(item?.watchlink);
+      const cover = getMovieCoverUrl(item?.cover);
+      const thumb = cover || getTrailerThumbnailUrl(item?.watchlink);
       if (thumb) {
         return {
           backgroundImage: `linear-gradient(180deg, rgba(0,0,0,${hero ? 0.25 : 0.15}), rgba(0,0,0,0.78)), url("${thumb}")`,

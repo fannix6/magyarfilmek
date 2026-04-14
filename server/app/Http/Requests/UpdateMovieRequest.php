@@ -28,6 +28,7 @@ class UpdateMovieRequest extends FormRequest
             'premiere' => 'sometimes|nullable|string',
             'watchlink' => 'sometimes|nullable|url',
             'imdblink' => 'sometimes|nullable|url',
+            'cover' => 'sometimes|nullable|string|max:255',
         ];
     }
 
@@ -52,6 +53,8 @@ class UpdateMovieRequest extends FormRequest
 
             'watchlink.url' => 'A film linkje érvényes URL-nek kell legyen.',
             'imdblink.url' => 'Az IMDB link érvényes URL-nek kell legyen.',
+            'cover.string' => 'A borító mező csak szöveg lehet.',
+            'cover.max' => 'A borító mező maximum 255 karakter lehet.',
         ];
     }
 }

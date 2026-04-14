@@ -18,9 +18,10 @@ class CsvReader
 
         if (($handle = fopen($filePath, 'r')) !== false) {
             $header = fgetcsv($handle, 0, $delimiter);
-            // $header = array_map(function ($h) {
-            //     return preg_replace('/^\xEF\xBB\xBF/', '', $h);
-            // }, $header);
+            $header = array_map(function ($h) {
+                $clean = preg_replace('/^\xEF\xBB\xBF/', '', $h);
+                return trim($clean, " \t\n\r\0\x0B\"");
+            }, $header);
 
 
             while (($cols = fgetcsv($handle, 0, $delimiter)) !== false) {

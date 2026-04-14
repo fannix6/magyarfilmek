@@ -87,7 +87,7 @@ import { mapState } from "pinia";
 import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 import movieService from "@/api/movieService";
 import reviewService from "@/api/reviewService";
-import { getTrailerThumbnailUrl } from "@/utils/media";
+import { getMovieCoverUrl, getTrailerThumbnailUrl } from "@/utils/media";
 import StarRating from "@/components/StarRating.vue";
 import { useConfirmStore } from "@/stores/confirmStore";
 
@@ -117,7 +117,8 @@ export default {
       return Number(this.$route.params.id);
     },
     heroStyle() {
-      const thumb = getTrailerThumbnailUrl(this.movie?.watchlink);
+      const cover = getMovieCoverUrl(this.movie?.cover);
+      const thumb = cover || getTrailerThumbnailUrl(this.movie?.watchlink);
       return {
         backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.82)), url("${thumb}")`,
         backgroundSize: "cover",

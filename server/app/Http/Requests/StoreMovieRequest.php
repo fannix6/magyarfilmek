@@ -20,6 +20,7 @@ class StoreMovieRequest extends FormRequest
             'premiere' => 'nullable|string|max:50',
             'watchlink' => 'nullable|url',
             'imdblink' => 'nullable|url',
+            'cover' => 'nullable|string|max:255',
         ];
     }
 
@@ -36,6 +37,8 @@ class StoreMovieRequest extends FormRequest
             'premiere.string'   => 'A premier csak szĂ¶veg lehet.',
             'watchlink.url'   => 'A link csak URL lehet.',
             'imdblink.url'   => 'Az IMDB link csak URL lehet.',
+            'cover.string' => 'A borĂ­tĂł mezĹ‘ csak szĂ¶veg lehet.',
+            'cover.max' => 'A borĂ­tĂł mezĹ‘ maximum 255 karakter lehet.',
         ];
     }
 }

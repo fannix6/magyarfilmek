@@ -37,6 +37,11 @@
         <option value="title">Title</option>
         <option value="produced">Year</option>
       </select>
+      <select v-model.number="pageSize">
+        <option :value="20">20 / page</option>
+        <option :value="30">30 / page</option>
+        <option :value="50">50 / page</option>
+      </select>
       <button v-if="isAdmin" class="btn-add" type="button" @click="openCreate">+ New Movie</button>
     </div>
 
@@ -51,6 +56,7 @@
       <input v-model.trim="form.premiere" placeholder="Premiere" />
       <input v-model.trim="form.watchlink" placeholder="Trailer / watch link" />
       <input v-model.trim="form.imdblink" placeholder="IMDb link" />
+      <input v-model.trim="form.cover" placeholder="Cover filename (e.g. film.jpg)" />
       <section class="actors">
         <div class="actors-header">
           <div>
@@ -128,7 +134,8 @@
     <div v-if="loading" class="state">Loading movies...</div>
     <div v-else-if="error" class="state error">{{ error }}</div>
     <div v-else class="movies-grid">
-      <article v-for="movie in filteredMovies" :key="movie.id" class="movie-card">
+      <article v-for="movie in pagedMovies" :key="movie.id" class="movie-card">
+        <div class="movie-cover" :style="movieCoverStyle(movie)"></div>
         <h2 class="movie-title">{{ movie.title }}</h2>
         <p><strong>Production Year:</strong> {{ movie.produced || "-" }}</p>
         <p><strong>Length:</strong> {{ movie.length ? movie.length + " minutes" : "-" }}</p>
@@ -154,6 +161,18 @@
         </div>
       </article>
     </div>
+
+    <div v-if="totalPages > 1" class="pagination">
+      <button type="button" :disabled="currentPage === 1" @click="goToPage(currentPage - 1)">
+        Prev
+      </button>
+      <div class="pagination-info">
+        Page {{ currentPage }} / {{ totalPages }}
+      </div>
+      <button type="button" :disabled="currentPage === totalPages" @click="goToPage(currentPage + 1)">
+        Next
+      </button>
+    </div>
   </section>
 </template>
 
@@ -166,6 +185,7 @@ import personService from "@/api/personService";
 import roleService from "@/api/roleService";
 import taskService from "@/api/taskService";
 import { useConfirmStore } from "@/stores/confirmStore";
+import { getMovieCoverUrl, getTrailerThumbnailUrl } from "@/utils/media";
 
 const emptyForm = () => ({
   title: "",
@@ -174,6 +194,7 @@ const emptyForm = () => ({
   premiere: "",
   watchlink: "",
   imdblink: "",
+  cover: "",
 });
 const emptyActorRow = (roleId, key) => ({
   key,
@@ -190,6 +211,8 @@ export default {
       movies: [],
       localSearch: "",
       sortKey: "title",
+      pageSize: 20,
+      currentPage: 1,
       editorOpen: false,
       editId: null,
       form: emptyForm(),
@@ -232,10 +255,29 @@ export default {
         return (m.title || "").toLowerCase().includes(needle);
       });
     },
+    totalPages() {
+      return Math.max(1, Math.ceil(this.filteredMovies.length / this.pageSize));
+    },
+    pagedMovies() {
+      const start = (this.currentPage - 1) * this.pageSize;
+      return this.filteredMovies.slice(start, start + this.pageSize);
+    },
   },
   watch: {
     searchWord(value) {
       if (value) this.localSearch = value;
+    },
+    localSearch() {
+      this.currentPage = 1;
+    },
+    sortKey() {
+      this.currentPage = 1;
+    },
+    searchMode() {
+      this.currentPage = 1;
+    },
+    pageSize() {
+      this.currentPage = 1;
     },
   },
   methods: {
@@ -264,6 +306,19 @@ export default {
       const seed = (movie.title || "").length + (movie.produced || 0);
       return (Math.max(1, Math.min(9.9, (seed % 90) / 10 + 1))).toFixed(1);
     },
+    movieCoverStyle(movie) {
+      const cover = getMovieCoverUrl(movie?.cover);
+      const thumb = cover || getTrailerThumbnailUrl(movie?.watchlink);
+      if (!thumb) return {};
+      return {
+        backgroundImage: `url("${thumb}")`,
+      };
+    },
+    goToPage(page) {
+      const safe = Math.min(Math.max(1, page), this.totalPages);
+      this.currentPage = safe;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },
     async openCreate() {
       this.editId = null;
       this.form = emptyForm();
@@ -284,6 +339,7 @@ export default {
         premiere: movie.premiere || "",
         watchlink: movie.watchlink || "",
         imdblink: movie.imdblink || "",
+        cover: movie.cover || "",
       };
       this.actors = [];
       this.actorsError = "";

@@ -24,6 +24,18 @@ Route::get('photos/{filename}', function (string $filename) {
     return response()->file($path);
 })->where('filename', '.*');
 
+// Public movie covers from /covers (repo root)
+Route::get('covers/{filename}', function (string $filename) {
+    $safeName = basename(urldecode($filename));
+    $path = base_path('../covers/' . $safeName);
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path);
+})->where('filename', '.*');
+
 // Auth / registration
 Route::post('users/login', [UserController::class, 'login']);
 Route::post('users', [UserController::class, 'store']);

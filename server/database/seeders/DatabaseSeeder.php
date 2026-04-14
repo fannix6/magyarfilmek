@@ -18,12 +18,14 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
         DB::statement('DELETE FROM reviews');
         DB::statement('DELETE FROM tasks');
         DB::statement('DELETE FROM movies');
         DB::statement('DELETE FROM people');
         DB::statement('DELETE FROM roles');
         DB::statement('DELETE FROM users');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
 
 
