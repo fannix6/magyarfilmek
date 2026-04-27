@@ -20,6 +20,7 @@
 6. Indítsd el a szervert.
 
 Parancsok:
+```console
 cd server
 composer install
 copy .env.example .env
@@ -27,6 +28,7 @@ php artisan key:generate
 php artisan migrate
 php artisan db:seed
 php artisan serve
+```
 
 ## Frontend telepítés és futtatás
 1. Lépj be a `client` mappába.
