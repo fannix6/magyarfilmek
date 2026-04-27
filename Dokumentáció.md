@@ -1,56 +1,190 @@
-#Projekt dokumentacio - Fontosabb commitok alapjan
-#Ebbe a dokumentációba csak a project legfontosabb commitjai lesznek feltüntetve
+# Dokumentáció
 
-###2026-01-10 - Feladat kitalálása
-Itt ötleteltük ki hogy, hogy és miként szeretnénk a projectet
+## A szoftver célja
+A projekt célja egy webalkalmazás létrehozása, amely magyar filmek adatainak kezelésére és megjelenítésére szolgál. A rendszer lehetőséget biztosít a filmek listázására, megtekintésére és kezelésére.
 
-###2026-01-10 
-A feladat kitalálása után elkezdtük megtervezni az adatbázisokat
+A felhasználók böngészhetik a filmeket, míg megfelelő jogosultság esetén módosíthatják is az adatokat.
 
-###2026-01-11
-Feladat leírásának elkezdése
+---
 
-###2026-01-15
-Repo elkészítése
+## A használat rövid bemutatása
+Az alkalmazás megnyitása után a felhasználó egy listában látja a filmeket. Lehetősége van:
+- filmek megtekintésére
+- részletek megnyitására
+- keresésre
 
-###2026-01-20
-Migráció megírásának elkezdése
+Bejelentkezés után további funkciók érhetők el, például:
+- új film hozzáadása
+- meglévő adatok szerkesztése
 
-###2026-01-25
-Seedelés megírása, hibajavítás
+---
 
-###2026-01-27
-Sql diagramm, kötések megírása
+# Komponensek technikai leírása
 
-###2026-01-28
-Controller start
+## Adatbázis
 
-###2026-01-31 
-request rest megírása
+### Technológia
+Az alkalmazás MySQL adatbázist használ.
 
-###2026-02-08
-seedélés hiba merült fel annak kijavítása
+### Tábla és mezők (példa)
+filmek:
+- id
+- cim
+- ev
+- leiras
+- created_at
+- updated_at
 
-###2026-02-14
-tesztek megírása, hibjavítás
+---
 
-###2026-02-20
-Hibajavítás
+## Backend
 
-###2026-03-02 
-Kliens munka elkezdése 
-Tervezés 
-Design
+### Technológia
+A backend Laravel keretrendszerrel készült.
 
-###2026-03-16
-Észrevételek, további fejlesztések kitervelése, feladat ujragondolása
+### Telepítés
+composer create-project laravel/laravel projektnev
 
-###2026-03-23 
-Fejlesztések végbevitele 
-Design változtatás 
-Feladat upgrade
+### Használt parancsok
+- php artisan serve
+- php artisan migrate
+- php artisan db:seed
+- php artisan make:model
+- php artisan make:controller
 
-###2026-03-24 
-Maradék feladatok kivégzése 
+---
 
-Admin feladatok(nincs befejezve)
+### Migráció
+A migrációk az adatbázis struktúráját hozzák létre.
+
+Példa:
+Schema::create('filmek', function (Blueprint $table) {
+    $table->id();
+    $table->string('cim');
+    $table->integer('ev');
+    $table->text('leiras');
+    $table->timestamps();
+});
+
+---
+
+### Seeder
+A seederek tesztadatokat töltenek fel az adatbázisba.
+
+Példa:
+DB::table('filmek')->insert([
+    'cim' => 'Minta film',
+    'ev' => 2020,
+    'leiras' => 'Leírás'
+]);
+
+---
+
+### Endpointok
+- GET /api/filmek
+- POST /api/filmek
+
+---
+
+### Middleware
+A middleware-ek biztosítják, hogy csak jogosult felhasználók férjenek hozzá bizonyos adatokhoz.
+
+---
+
+### Kontroller példa
+public function index() {
+    return Film::all();
+}
+
+---
+
+### Model példa
+class Film extends Model {
+    protected $fillable = ['cim', 'ev', 'leiras'];
+}
+
+---
+
+### Validáció (422)
+$request->validate([
+    'cim' => 'required',
+    'ev' => 'required|integer'
+]);
+
+---
+
+### Autentikáció
+A rendszer kezeli:
+- bejelentkezést
+- kijelentkezést
+- tokeneket
+- jogosultsági szinteket
+
+---
+
+## Frontend
+
+### Technológia
+A frontend Vue.js használatával készült.
+
+---
+
+### Fő modulok
+- film lista
+- részletező oldal
+- bejelentkezés
+
+---
+
+### Alkalmazás felépítése
+Belépési pontok:
+- main.js
+- App.vue
+
+Fő részek:
+- head
+- menü
+- tartalom
+
+---
+
+### Jogosultság kezelés
+- backend oldalon middleware
+- frontend oldalon:
+  - menü elemek kezelése
+  - route védelem
+
+---
+
+### Mappastruktúra
+- api
+- store (pinia)
+- components
+- views
+- router
+
+---
+
+### Program működés
+
+Kártyák:
+A filmek kártya nézetben jelennek meg.
+
+Lapozás:
+Az adatok több oldalra bontva jelennek meg.
+
+Űrlapok:
+Az adatok bevitele validációval történik.
+
+---
+
+### Dizájn
+Az alkalmazás reszponzív, így mobilon és asztali nézetben is megfelelően működik.
+
+---
+
+## Forráslista
+- Laravel dokumentáció
+- Vue.js dokumentáció
+- Stack Overflow
+- online tutorialok

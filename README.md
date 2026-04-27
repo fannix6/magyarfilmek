@@ -1,38 +1,55 @@
-# Magyar Filmek
+# README – Technikai követelmények és telepítési útmutató
 
-Ez a projekt egy magyar filmekkel foglalkozó webalkalmazás. Az oldal célja, hogy a felhasználók könnyen megnézhessenek régi magyar filmeket, információt kapjanak a szereplőkről, és véleményt is írhassanak.
+## Szükséges szoftverek
+- Git
+- PHP 8.2
+- Composer
+- Node.js (legalább 20.19.0 ajánlott)
+- MySQL
 
-Az alkalmazás **Laravel backenddel** és **Vue.js frontenddel** készült.
+## Forráskód letöltése
+1. Klónozd a repository-t.
+2. Lépj be a projekt gyökérkönyvtárába (ahol a `client` és `server` mappák vannak).
 
-## Fő funkciók
+## Backend telepítés és futtatás
+1. Lépj be a `server` mappába.
+2. Telepítsd a függőségeket.
+3. Hozd létre a `.env` fájlt az `.env.example` alapján, és állítsd be az adatbázist.
+4. Generálj alkalmazás kulcsot.
+5. Futtasd a migrációkat és seedeket.
+6. Indítsd el a szervert.
 
-### Látogatóknak
-- filmek megtekintése
-- keresés a filmek között
-- színészek böngészése
-- filmadatlap megnyitása
-- vélemények olvasása
+Parancsok:
+```console
+cd server
+composer install
+copy .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+php artisan serve
+```
 
-### Regisztrált felhasználóknak
-- regisztráció és bejelentkezés
-- saját profil megtekintése
-- filmek értékelése
-- szöveges vélemény írása
-- saját vélemény módosítása vagy törlése
+## Frontend telepítés és futtatás
+1. Lépj be a `client` mappába.
+2. Telepítsd a csomagokat.
+3. Indítsd el a fejlesztői szervert.
 
-### Adminnak
-- filmek kezelése
-- színészek kezelése
-- felhasználók kezelése
-- kapcsolódó adatok kezelése
+Parancsok:
+cd client
+npm install
+npm run dev
 
-## Hogyan működik
+## Tesztek futtatása
 
-- A rendszer egy adatbázisból dolgozik, amely magyar filmek adatait tartalmazza.
-- A felhasználók filmeket és színészeket tudnak megtekinteni.
-- Bejelentkezés után véleményt is lehet írni a filmekhez.
-- Az admin tudja kezelni a tartalmakat és a felhasználókat.
+Backend:
+cd server
+php artisan test
 
-## Projekt célja
+Frontend (unit):
+cd client
+npm run test:unit
 
-A projekt célja egy egyszerű, átlátható filmes weboldal készítése, amely segít a magyar filmek bemutatásában, és lehetőséget ad a felhasználóknak a véleményük megosztására is.
+Frontend (e2e):
+cd client
+npm run test:e2e
